@@ -3,7 +3,6 @@ import pandas as pd
 from time import sleep
 import tkinter.messagebox
 import tkinter
-import threading
 
 
 def data_frame(data):
@@ -21,10 +20,6 @@ def data_frame(data):
 
 
 if __name__ == '__main__':
-    # threading.Event()
-    # main_window = tkinter.Tk()
-    # main_window.title('show')
-    # main_window.geometry('400x100')
     while True:
         sleep(2)
         try:
@@ -38,4 +33,3 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             continue
-        # main_window.mainloop()
