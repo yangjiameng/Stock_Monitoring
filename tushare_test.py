@@ -3,7 +3,9 @@ import pandas as pd
 from time import sleep
 import tkinter.messagebox
 import tkinter
-import threading
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+import Stock_Monitoring.StockUI as s_ui
 
 
 def data_frame(data):
@@ -21,10 +23,11 @@ def data_frame(data):
 
 
 if __name__ == '__main__':
-    # threading.Event()
-    # main_window = tkinter.Tk()
-    # main_window.title('show')
-    # main_window.geometry('400x100')
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = s_ui.Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     while True:
         sleep(2)
         try:
@@ -38,4 +41,4 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             continue
-        # main_window.mainloop()
+    sys.exit(app.exec_())
