@@ -28,6 +28,7 @@ if __name__ == '__main__':
     ui = s_ui.Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+
     while True:
         sleep(2)
         try:
