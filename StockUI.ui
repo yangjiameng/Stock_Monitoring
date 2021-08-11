@@ -77,18 +77,20 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="action"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>编辑</string>
     </property>
+    <addaction name="action1"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -106,24 +108,17 @@
    <addaction name="menu_4"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>新建</string>
+   </property>
+  </action>
+  <action name="action1">
+   <property name="text">
+    <string>选择</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Stock_Monitoring</receiver>
-   <slot>showMaximized()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>131</x>
-     <y>134</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>140</x>
-     <y>223</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

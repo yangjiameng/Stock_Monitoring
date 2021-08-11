@@ -4,7 +4,7 @@ from time import sleep
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex
 import sys
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 
@@ -25,16 +25,20 @@ def data_frame(data):
 
 class work_thread(QThread):
     trigger = pyqtSignal(str)
+    lock = QMutex()
 
     def __init__(self):
         super(work_thread, self).__init__()
 
     def run(self):
+        self.lock.lock()
         while True:
             sleep(2)
             try:
-                data_shui = ts.get_realtime_quotes('000683')
-                data_lulu = ts.get_realtime_quotes('600111')
+                data_1 = ui.lineEdit.text()
+                data_2 = ui.lineEdit_2.text()
+                data_shui = ts.get_realtime_quotes(data_1)
+                data_lulu = ts.get_realtime_quotes(data_2)
                 details1, df_percentages1 = data_frame(data_lulu)
                 details, df_percentages = data_frame(data_shui)
                 self.trigger.emit(str(details1))
@@ -44,26 +48,29 @@ class work_thread(QThread):
             except Exception as e:
                 print(e)
                 continue
+        self.lock.unlock()
 
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def __init__(self):
         super(main_ui, self).__init__()
         self.setupUi(self)
+        self.work = work_thread()
+        self.pushButton.clicked.connect(self.work_event)
 
+    def work_event(self):
+        self.work.start()
+        self.work.trigger.connect(self.con)
 
-def con(str_):
-    time = QDateTime.currentDateTime()
-    time_format = time.toString("yyyy-MM-dd hh:mm:ss")
-    ui.listWidget.addItem(str_ + " : " + time_format)
-    ui.listWidget.scrollToBottom()
+    def con(self, str_):
+        self.time = QDateTime.currentDateTime()
+        self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
+        self.listWidget.addItem(str_ + " : " + self.time_format)
+        self.listWidget.scrollToBottom()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui = main_ui()
-    work = work_thread()
-    work.start()
-    work.trigger.connect(con)
     ui.show()
     sys.exit(app.exec_())

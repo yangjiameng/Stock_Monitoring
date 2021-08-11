@@ -50,7 +50,7 @@ class Ui_Stock_Monitoring(object):
         self.gridLayout_3.addWidget(self.listWidget, 0, 1, 1, 1)
         Stock_Monitoring.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(Stock_Monitoring)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -64,13 +64,18 @@ class Ui_Stock_Monitoring(object):
         self.statusbar = QtWidgets.QStatusBar(Stock_Monitoring)
         self.statusbar.setObjectName("statusbar")
         Stock_Monitoring.setStatusBar(self.statusbar)
+        self.action = QtWidgets.QAction(Stock_Monitoring)
+        self.action.setObjectName("action")
+        self.action1 = QtWidgets.QAction(Stock_Monitoring)
+        self.action1.setObjectName("action1")
+        self.menu.addAction(self.action)
+        self.menu_2.addAction(self.action1)
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
         self.menubar.addAction(self.menu_3.menuAction())
         self.menubar.addAction(self.menu_4.menuAction())
 
         self.retranslateUi(Stock_Monitoring)
-        self.pushButton.clicked.connect(Stock_Monitoring.showMaximized)
         QtCore.QMetaObject.connectSlotsByName(Stock_Monitoring)
 
     def retranslateUi(self, Stock_Monitoring):
@@ -82,6 +87,8 @@ class Ui_Stock_Monitoring(object):
         self.menu_2.setTitle(_translate("Stock_Monitoring", "编辑"))
         self.menu_3.setTitle(_translate("Stock_Monitoring", "设置"))
         self.menu_4.setTitle(_translate("Stock_Monitoring", "帮助"))
+        self.action.setText(_translate("Stock_Monitoring", "新建"))
+        self.action1.setText(_translate("Stock_Monitoring", "选择"))
 
 
 if __name__ == "__main__":
