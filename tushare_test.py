@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex
 import sys
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
+import matplotlib
 
 
 def data_frame(data):
@@ -26,6 +27,8 @@ def data_frame(data):
 class work_thread(QThread):
     trigger = pyqtSignal(str)
     lock = QMutex()
+    time = QDateTime.currentDateTime()
+    time_format = time.toString("yyyy-MM-dd hh:mm:ss")
 
     def __init__(self):
         super(work_thread, self).__init__()
@@ -41,7 +44,8 @@ class work_thread(QThread):
                 data_lulu = ts.get_realtime_quotes(data_2)
                 details1, df_percentages1 = data_frame(data_lulu)
                 details, df_percentages = data_frame(data_shui)
-                self.trigger.emit(str(details1))
+                self.connect(str(details1))
+                # self.trigger.emit(str(details1))
                 print(details, details1)
                 if df_percentages > 10.0 or df_percentages1 > 5.0:
                     tkinter.messagebox.showwarning('warning', '干')
@@ -50,8 +54,17 @@ class work_thread(QThread):
                 continue
         self.lock.unlock()
 
+    def connect(self, str_):
+        self.time = QDateTime.currentDateTime()
+        self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
+        ui.listWidget.addItem(str_ + " : " + self.time_format)
+        ui.listWidget.scrollToBottom()
+
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
+    # time = QDateTime.currentDateTime()
+    # time_format = time.toString("yyyy-MM-dd hh:mm:ss")
+
     def __init__(self):
         super(main_ui, self).__init__()
         self.setupUi(self)
@@ -60,13 +73,13 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def work_event(self):
         self.work.start()
-        self.work.trigger.connect(self.con)
+        # self.work.trigger.connect(self.con)
 
-    def con(self, str_):
-        self.time = QDateTime.currentDateTime()
-        self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
-        self.listWidget.addItem(str_ + " : " + self.time_format)
-        self.listWidget.scrollToBottom()
+    # def con(self, str_):
+    #     self.time = QDateTime.currentDateTime()
+    #     self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
+    #     self.listWidget.addItem(str_ + " : " + self.time_format)
+    #     self.listWidget.scrollToBottom()
 
 
 if __name__ == '__main__':
