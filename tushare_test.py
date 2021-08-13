@@ -5,6 +5,8 @@ import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex
+import pyqtgraph as pg
+import numpy as np
 import sys
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 import matplotlib
@@ -38,7 +40,7 @@ class work_thread(QThread):
         while True:
             sleep(2)
             try:
-                data_1 = ui.lineEdit.text()
+                data_1 = ui.lineEdit_1.text()
                 data_2 = ui.lineEdit_2.text()
                 data_shui = ts.get_realtime_quotes(data_1)
                 data_lulu = ts.get_realtime_quotes(data_2)
@@ -57,8 +59,11 @@ class work_thread(QThread):
     def connect(self, str_):
         self.time = QDateTime.currentDateTime()
         self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
-        ui.listWidget.addItem(str_ + " : " + self.time_format)
-        ui.listWidget.scrollToBottom()
+        ui.listWidget_show_msg.addItem(str_ + " : " + self.time_format)
+        ui.listWidget_show_msg.scrollToBottom()
+
+    def graph(self):
+        pg.plot()
 
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
@@ -67,9 +72,11 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def __init__(self):
         super(main_ui, self).__init__()
+        pg.setConfigOption("background", "w")
+        pg.setConfigOption("foreground", "d")
         self.setupUi(self)
         self.work = work_thread()
-        self.pushButton.clicked.connect(self.work_event)
+        self.pushButton_search.clicked.connect(self.work_event)
 
     def work_event(self):
         self.work.start()
