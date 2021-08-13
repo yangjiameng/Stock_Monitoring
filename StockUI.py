@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from pyqtgraph import GraphicsLayoutWidget
 
 
 class Ui_Stock_Monitoring(object):
@@ -46,15 +47,15 @@ class Ui_Stock_Monitoring(object):
         self.gridLayout.addWidget(self.pushButton_search, 2, 1, 1, 1)
         self.gridLayout_2.addWidget(self.groupBox_stock, 0, 0, 1, 2)
         self.gridLayout_3.addLayout(self.gridLayout_2, 1, 0, 1, 1)
-        self.graphicsView_red_green = QtWidgets.QGraphicsView(self.centralwidget)
-        self.graphicsView_red_green.setObjectName("graphicsView_red_green")
-        self.gridLayout_3.addWidget(self.graphicsView_red_green, 2, 2, 1, 1)
         self.listWidget_show_msg = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget_show_msg.setObjectName("listWidget_show_msg")
         self.gridLayout_3.addWidget(self.listWidget_show_msg, 1, 2, 1, 1)
+        self.graphicsView_matplot = GraphicsLayoutWidget(self.centralwidget)
+        self.graphicsView_matplot.setObjectName("graphicsView_matplot")
+        self.gridLayout_3.addWidget(self.graphicsView_matplot, 2, 2, 1, 1)
         Stock_Monitoring.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(Stock_Monitoring)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 23))
         self.menubar.setObjectName("menubar")
         self.menu_file = QtWidgets.QMenu(self.menubar)
         self.menu_file.setObjectName("menu_file")
@@ -101,6 +102,7 @@ class Ui_Stock_Monitoring(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Stock_Monitoring = QtWidgets.QMainWindow()
     ui = Ui_Stock_Monitoring()

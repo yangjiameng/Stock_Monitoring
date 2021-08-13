@@ -85,11 +85,11 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="2">
-     <widget class="QGraphicsView" name="graphicsView_red_green"/>
-    </item>
     <item row="1" column="2">
      <widget class="QListWidget" name="listWidget_show_msg"/>
+    </item>
+    <item row="2" column="2">
+     <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
     </item>
    </layout>
   </widget>
@@ -99,7 +99,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -141,6 +141,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GraphicsLayoutWidget</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

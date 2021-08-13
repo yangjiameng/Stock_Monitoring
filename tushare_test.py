@@ -3,7 +3,7 @@ import pandas as pd
 from time import sleep
 import tkinter.messagebox
 import tkinter
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex
 import pyqtgraph as pg
 import numpy as np
@@ -67,26 +67,18 @@ class work_thread(QThread):
 
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
-    # time = QDateTime.currentDateTime()
-    # time_format = time.toString("yyyy-MM-dd hh:mm:ss")
 
     def __init__(self):
-        super(main_ui, self).__init__()
+        super().__init__()
         pg.setConfigOption("background", "w")
         pg.setConfigOption("foreground", "d")
+        self.graphicsView_matplot.addPlot()
         self.setupUi(self)
         self.work = work_thread()
         self.pushButton_search.clicked.connect(self.work_event)
 
     def work_event(self):
         self.work.start()
-        # self.work.trigger.connect(self.con)
-
-    # def con(self, str_):
-    #     self.time = QDateTime.currentDateTime()
-    #     self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
-    #     self.listWidget.addItem(str_ + " : " + self.time_format)
-    #     self.listWidget.scrollToBottom()
 
 
 if __name__ == '__main__':
