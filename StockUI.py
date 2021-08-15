@@ -9,13 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from pyqtgraph import GraphicsLayoutWidget
 
 
 class Ui_Stock_Monitoring(object):
     def setupUi(self, Stock_Monitoring):
         Stock_Monitoring.setObjectName("Stock_Monitoring")
-        Stock_Monitoring.resize(800, 600)
+        Stock_Monitoring.resize(784, 582)
         self.centralwidget = QtWidgets.QWidget(Stock_Monitoring)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.centralwidget)
@@ -28,6 +27,14 @@ class Ui_Stock_Monitoring(object):
         self.groupBox_stock.setObjectName("groupBox_stock")
         self.gridLayout = QtWidgets.QGridLayout(self.groupBox_stock)
         self.gridLayout.setObjectName("gridLayout")
+        self.lineEdit_4 = QtWidgets.QLineEdit(self.groupBox_stock)
+        self.lineEdit_4.setText("")
+        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.gridLayout.addWidget(self.lineEdit_4, 1, 1, 1, 1)
+        self.pushButton_search = QtWidgets.QPushButton(self.groupBox_stock)
+        self.pushButton_search.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.pushButton_search.setObjectName("pushButton_search")
+        self.gridLayout.addWidget(self.pushButton_search, 2, 1, 1, 1)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.groupBox_stock)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 0, 1, 1, 1)
@@ -35,27 +42,30 @@ class Ui_Stock_Monitoring(object):
         self.lineEdit_1.setInputMask("")
         self.lineEdit_1.setObjectName("lineEdit_1")
         self.gridLayout.addWidget(self.lineEdit_1, 0, 0, 1, 1)
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.groupBox_stock)
-        self.lineEdit_4.setObjectName("lineEdit_4")
-        self.gridLayout.addWidget(self.lineEdit_4, 1, 1, 1, 1)
         self.lineEdit_3 = QtWidgets.QLineEdit(self.groupBox_stock)
+        self.lineEdit_3.setText("")
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.gridLayout.addWidget(self.lineEdit_3, 1, 0, 1, 1)
-        self.pushButton_search = QtWidgets.QPushButton(self.groupBox_stock)
-        self.pushButton_search.setMaximumSize(QtCore.QSize(200, 16777215))
-        self.pushButton_search.setObjectName("pushButton_search")
-        self.gridLayout.addWidget(self.pushButton_search, 2, 1, 1, 1)
         self.gridLayout_2.addWidget(self.groupBox_stock, 0, 0, 1, 2)
         self.gridLayout_3.addLayout(self.gridLayout_2, 1, 0, 1, 1)
         self.listWidget_show_msg = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget_show_msg.setObjectName("listWidget_show_msg")
         self.gridLayout_3.addWidget(self.listWidget_show_msg, 1, 2, 1, 1)
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab30 = QtWidgets.QWidget()
+        self.tab30.setObjectName("tab30")
+        self.tabWidget.addTab(self.tab30, "")
+        self.tab_real = QtWidgets.QWidget()
+        self.tab_real.setObjectName("tab_real")
+        self.tabWidget.addTab(self.tab_real, "")
+        self.gridLayout_3.addWidget(self.tabWidget, 2, 0, 1, 1)
         self.graphicsView_matplot = GraphicsLayoutWidget(self.centralwidget)
         self.graphicsView_matplot.setObjectName("graphicsView_matplot")
         self.gridLayout_3.addWidget(self.graphicsView_matplot, 2, 2, 1, 1)
         Stock_Monitoring.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(Stock_Monitoring)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 784, 21))
         self.menubar.setObjectName("menubar")
         self.menu_file = QtWidgets.QMenu(self.menubar)
         self.menu_file.setObjectName("menu_file")
@@ -81,28 +91,31 @@ class Ui_Stock_Monitoring(object):
         self.menubar.addAction(self.menu_help.menuAction())
 
         self.retranslateUi(Stock_Monitoring)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Stock_Monitoring)
 
     def retranslateUi(self, Stock_Monitoring):
         _translate = QtCore.QCoreApplication.translate
         Stock_Monitoring.setWindowTitle(_translate("Stock_Monitoring", "Stock_Monitoring"))
         self.groupBox_stock.setTitle(_translate("Stock_Monitoring", "股票代码"))
+        self.lineEdit_4.setPlaceholderText(_translate("Stock_Monitoring", "结束日期"))
+        self.pushButton_search.setText(_translate("Stock_Monitoring", "确定"))
         self.lineEdit_2.setText(_translate("Stock_Monitoring", "600111"))
         self.lineEdit_1.setText(_translate("Stock_Monitoring", "000848"))
-        self.lineEdit_4.setText(_translate("Stock_Monitoring", "xxxxxx"))
-        self.lineEdit_3.setText(_translate("Stock_Monitoring", "xxxxxx"))
-        self.pushButton_search.setText(_translate("Stock_Monitoring", "确定"))
+        self.lineEdit_3.setPlaceholderText(_translate("Stock_Monitoring", "开始日期"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab30), _translate("Stock_Monitoring", "30日K线"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_real), _translate("Stock_Monitoring", "实时走势"))
         self.menu_file.setTitle(_translate("Stock_Monitoring", "文件"))
         self.menu_edit.setTitle(_translate("Stock_Monitoring", "编辑"))
         self.menu_set.setTitle(_translate("Stock_Monitoring", "设置"))
         self.menu_help.setTitle(_translate("Stock_Monitoring", "帮助"))
         self.menu_new.setText(_translate("Stock_Monitoring", "新建"))
         self.menu_select.setText(_translate("Stock_Monitoring", "选择"))
+from pyqtgraph import GraphicsLayoutWidget
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Stock_Monitoring = QtWidgets.QMainWindow()
     ui = Ui_Stock_Monitoring()

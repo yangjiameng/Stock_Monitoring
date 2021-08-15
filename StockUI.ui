@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>784</width>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,29 @@
          <string>股票代码</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_4">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="pushButton_search">
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>确定</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="1">
           <widget class="QLineEdit" name="lineEdit_2">
            <property name="text">
@@ -53,30 +76,13 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_4">
-           <property name="text">
-            <string>xxxxxx</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLineEdit" name="lineEdit_3">
            <property name="text">
-            <string>xxxxxx</string>
+            <string/>
            </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="pushButton_search">
-           <property name="maximumSize">
-            <size>
-             <width>200</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>确定</string>
+           <property name="placeholderText">
+            <string>开始日期</string>
            </property>
           </widget>
          </item>
@@ -88,6 +94,23 @@
     <item row="1" column="2">
      <widget class="QListWidget" name="listWidget_show_msg"/>
     </item>
+    <item row="2" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab30">
+       <attribute name="title">
+        <string>30日K线</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_real">
+       <attribute name="title">
+        <string>实时走势</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
     <item row="2" column="2">
      <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
     </item>
@@ -98,8 +121,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>23</height>
+     <width>784</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
