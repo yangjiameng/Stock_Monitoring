@@ -6,10 +6,8 @@ import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer
 import pyqtgraph as pg
-import numpy as np
 import sys
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
-import matplotlib
 
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
@@ -110,10 +108,12 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.setupUi(self)
         self.mouth_k = self.graphicsView_matplot.addPlot(title="30K线图")
         self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
+        self.line_list_time = []
+        self.line_list_price = []
         self.k_plot()
         self.timer = QTimer()
         self.timer.timeout.connect(self.line)
-        self.timer.start(1000)
+        self.timer.start(2000)
         self.work = work_thread()
         self.pushButton_search.clicked.connect(self.work_event)
         self.lineEdit_3.textChanged.connect(self.k_plot)
@@ -121,8 +121,19 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def line(self):
         self.daily_k.clear()
-        self.n = np.random.randint(0, 10)
-        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), y=[self.n, self.n + 1, self.n +4])
+        time = QDateTime.currentDateTime()
+        time_format = time.toString("yyyyMMdd hh.mmss")
+        x = float(time_format[9:14])
+        print(x)
+        data_pan = ts.get_realtime_quotes(self.lineEdit_1.text())
+        data_pd = pd.DataFrame(data_pan)
+        price = float(data_pd.loc[0, 'price'])
+        self.line_list_time.append(x)
+        self.line_list_price.append(price)
+        self.daily_k.setLabel("bottom", "Time/(h:s)")
+        self.daily_k.setLabel("left", "Price/(¥)")
+        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), x=self.line_list_time, y=self.line_list_price)
+        self.daily_k.showGrid(y=True)
 
     def k_plot(self):
         self.mouth_k.clear()
