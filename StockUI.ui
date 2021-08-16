@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>784</width>
-    <height>582</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,31 +15,38 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="1" column="0">
+    <item row="1" column="2">
+     <widget class="QListWidget" name="listWidget_show_msg"/>
+    </item>
+    <item row="1" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="3" column="0" colspan="2">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="0" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_stock">
         <property name="title">
          <string>股票代码</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLineEdit" name="lineEdit_1">
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="text">
+            <string>000848</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="text">
+            <string>600111</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
           <widget class="QLineEdit" name="lineEdit_4">
            <property name="text">
-            <string/>
+            <string>20210816</string>
            </property>
            <property name="placeholderText">
             <string>结束日期</string>
@@ -59,27 +66,10 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="text">
-            <string>600111</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLineEdit" name="lineEdit_1">
-           <property name="inputMask">
-            <string/>
-           </property>
-           <property name="text">
-            <string>000848</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
           <widget class="QLineEdit" name="lineEdit_3">
            <property name="text">
-            <string/>
+            <string>20210801</string>
            </property>
            <property name="placeholderText">
             <string>开始日期</string>
@@ -89,27 +79,23 @@
         </layout>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
-    <item row="1" column="2">
-     <widget class="QListWidget" name="listWidget_show_msg"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab30">
-       <attribute name="title">
-        <string>30日K线</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_real">
-       <attribute name="title">
-        <string>实时走势</string>
-       </attribute>
-      </widget>
-     </widget>
+    <item row="2" column="1">
+     <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
     </item>
     <item row="2" column="2">
      <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
@@ -122,7 +108,7 @@
      <x>0</x>
      <y>0</y>
      <width>784</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">

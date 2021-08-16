@@ -4,7 +4,7 @@ from time import sleep
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer
 import pyqtgraph as pg
 import numpy as np
 import sys
@@ -28,15 +28,19 @@ def data_frame(data):
     return detail, df_percentage
 
 
-def ts_pro_api():
+def ts_pro_api(code, start, end):
     result_open_red = []
     result_close_red = []
     result_open_green = []
     result_close_green = []
     result_date_red = []
     result_date_green = []
+    if code[0] == '0':
+        suffix = '.SZ'
+    else:
+        suffix = '.SH'
     pro = ts.pro_api(token)
-    data = pro.daily(ts_code='000848.SZ', start_date='20210701', end_date='20210813')
+    data = pro.daily(ts_code=code + suffix, start_date=start, end_date=end)
     df = pd.DataFrame(data)
     for i in range(0, df.shape[0]):
         df_close = df.loc[i, 'change']
@@ -49,10 +53,6 @@ def ts_pro_api():
             result_open_green.append(df_open)
             result_close_green.append(df_close)
             result_date_green.append(df.shape[0] - i)
-    # result_open_green.reverse()
-    # result_close_green.reverse()
-    # # result_open_red.reverse()
-    # result_close_red.reverse()
     return result_open_red, result_close_red, result_date_red, result_open_green, result_close_green, result_date_green
 
 
@@ -79,7 +79,7 @@ class work_thread(QThread):
                 self.connect(str(details1))
                 self.trigger.emit(df_percentages1)
                 print(details, details1)
-                if df_percentages > 10.0 or df_percentages1 > 5.0:
+                if df_percentages > 11.0 or df_percentages1 > 5.0:
                     tkinter.messagebox.showwarning('warning', '干')
             except Exception as e:
                 print(e)
@@ -89,6 +89,10 @@ class work_thread(QThread):
     def connect(self, str_):
         self.time = QDateTime.currentDateTime()
         self.time_format = self.time.toString("yyyy-MM-dd hh:mm:ss")
+        if '0930' <= self.time_format[11:13] + self.time_format[14:16] <= '1130':
+            print(self.time_format[11:13] + self.time_format[14:16])
+        elif '1300' <= self.time_format[11:13] + self.time_format[14:16] <= '1500':
+            print(self.time_format[11:13] + self.time_format[14:16])
         ui.listWidget_show_msg.addItem(str_ + " : " + self.time_format)
         ui.listWidget_show_msg.scrollToBottom()
 
@@ -98,28 +102,41 @@ class work_thread(QThread):
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
+    pg.setConfigOption("background", "w")
+    pg.setConfigOption("foreground", "k")
+
     def __init__(self):
         super().__init__()
-        pg.setConfigOption("background", "w")
-        pg.setConfigOption("foreground", "k")
         self.setupUi(self)
+        self.mouth_k = self.graphicsView_matplot.addPlot(title="30K线图")
+        self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
         self.k_plot()
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.line)
+        self.timer.start(1000)
         self.work = work_thread()
         self.pushButton_search.clicked.connect(self.work_event)
+        self.lineEdit_3.textChanged.connect(self.k_plot)
+        self.lineEdit_4.textChanged.connect(self.k_plot)
 
     def line(self):
-        self.graphicsView_matplot.addPlot(title="分时K线图", y=[1, 2, 3], pen=pg.mkPen(color='r', width=2))
+        self.daily_k.clear()
+        self.n = np.random.randint(0, 10)
+        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), y=[self.n, self.n + 1, self.n +4])
 
     def k_plot(self):
-        plt = self.graphicsView_matplot.addPlot(title="K线图")
-        plt.setLabel("bottom", "Time/(min)")
-        plt.setLabel("left", "Increase/(%)")
-        open_price_r, close_price_r, date_r, open_price_g, close_price_g, date_g = ts_pro_api()
+        self.mouth_k.clear()
+        self.mouth_k.setLabel("bottom", "Time/(min)")
+        self.mouth_k.setLabel("left", "Increase/(%)")
+        code = self.lineEdit_1.text()
+        start = self.lineEdit_3.text()
+        end = self.lineEdit_4.text()
+        open_price_r, close_price_r, date_r, open_price_g, close_price_g, date_g = ts_pro_api(code, start, end)
         bg1 = pg.BarGraphItem(y0=open_price_r, x=date_r, height=close_price_r, width=0.3, brush='r')
         bg2 = pg.BarGraphItem(y0=open_price_g, x=date_g, height=close_price_g, width=0.3, brush='g')
-        plt.addItem(bg1)
-        plt.addItem(bg2)
-        plt.showGrid(y=True)
+        self.mouth_k.addItem(bg1)
+        self.mouth_k.addItem(bg2)
+        self.mouth_k.showGrid(y=True)
 
     def work_event(self):
         self.work.start()
