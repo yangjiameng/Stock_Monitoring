@@ -121,18 +121,19 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def line(self):
         self.daily_k.clear()
-        time = QDateTime.currentDateTime()
-        time_format = time.toString("yyyyMMdd hh.mmss")
-        x = float(time_format[9:14])
-        print(x)
-        data_pan = ts.get_realtime_quotes(self.lineEdit_1.text())
+        # self.graphicsView_daily_line.sigSceneMouseMoved.connect()
+        # self.graphicsView_daily_line.plotItem.vb.mapSceneToView()
+        # time = QDateTime.currentDateTime()
+        # time_format = time.toString("yyyyMMdd hh.mmss")
+        # x = float(time_format[9:14])
+        data_pan = ts.get_realtime_quotes(self.lineEdit_2.text())
         data_pd = pd.DataFrame(data_pan)
         price = float(data_pd.loc[0, 'price'])
-        self.line_list_time.append(x)
+        # self.line_list_time.append(x)
         self.line_list_price.append(price)
         self.daily_k.setLabel("bottom", "Time/(h:s)")
         self.daily_k.setLabel("left", "Price/(¥)")
-        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), x=self.line_list_time, y=self.line_list_price)
+        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), y=self.line_list_price)
         self.daily_k.showGrid(y=True)
 
     def k_plot(self):
