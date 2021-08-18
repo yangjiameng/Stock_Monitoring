@@ -1,10 +1,12 @@
 import tushare as ts
 import pandas as pd
 from time import sleep
+import datetime
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer
+from PyQt5.QtGui import QIcon
 import pyqtgraph as pg
 import sys
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
@@ -106,10 +108,15 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon("Icons/main_icon.ico"))
         self.mouth_k = self.graphicsView_matplot.addPlot(title="30K线图")
         self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
         self.line_list_time = []
         self.line_list_price = []
+        self.process_value = 100 / 7200
+        self.step = 100 / 7200
+        self.time_begin = '0000'
+        self.time_flag = '0000'
         self.k_plot()
         self.timer = QTimer()
         self.timer.timeout.connect(self.line)
@@ -120,21 +127,24 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.lineEdit_4.textChanged.connect(self.k_plot)
 
     def line(self):
-        self.daily_k.clear()
-        # self.graphicsView_daily_line.sigSceneMouseMoved.connect()
-        # self.graphicsView_daily_line.plotItem.vb.mapSceneToView()
-        # time = QDateTime.currentDateTime()
-        # time_format = time.toString("yyyyMMdd hh.mmss")
-        # x = float(time_format[9:14])
-        data_pan = ts.get_realtime_quotes(self.lineEdit_2.text())
-        data_pd = pd.DataFrame(data_pan)
-        price = float(data_pd.loc[0, 'price'])
-        # self.line_list_time.append(x)
-        self.line_list_price.append(price)
-        self.daily_k.setLabel("bottom", "Time/(h:s)")
-        self.daily_k.setLabel("left", "Price/(¥)")
-        self.daily_k.plot().setData(pen=pg.mkPen(color='r', width=2), y=self.line_list_price)
-        self.daily_k.showGrid(y=True)
+        self.time_begin = datetime.datetime.now().strftime('%H%M')
+        if '0930' <= self.time_begin <= '1130' or '1300' <= self.time_begin <= '1500':
+            self.progressBar_stock.setValue(self.process_value)
+            self.process_value += self.step
+            self.daily_k.clear()
+            data_pan = ts.get_realtime_quotes(self.lineEdit_2.text())
+            data_pd = pd.DataFrame(data_pan)
+            price = float(data_pd.loc[0, 'price'])
+            # self.line_list_time.append(x)
+            if self.time_begin == self.time_flag:
+                self.line_list_price[-1] = price
+            else:
+                self.line_list_price.append(price)
+                self.time_flag = self.time_begin
+            self.daily_k.setLabel("bottom", "Time/(h:s)")
+            self.daily_k.setLabel("left", "Price/(¥)")
+            self.daily_k.plot(fillLevel=0, brush=(50, 50, 200, 100)).setData(pen=pg.mkPen(color='r', width=2), y=self.line_list_price)
+            self.daily_k.showGrid(y=True)
 
     def k_plot(self):
         self.mouth_k.clear()
