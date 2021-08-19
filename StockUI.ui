@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
-    <height>547</height>
+    <width>866</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="4" column="1">
-     <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
-    </item>
     <item row="0" column="3">
      <widget class="QProgressBar" name="progressBar_stock">
       <property name="value">
@@ -28,31 +25,116 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>进度</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" rowspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>我的盈亏信息</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="checkBox_remember">
+         <property name="text">
+          <string>记住我</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="6">
+        <widget class="QListView" name="listView_person_msg"/>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>收益计算</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>我的本金</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_my_money">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="maximum">
+          <double>10000000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="2" colspan="2">
+     <widget class="QGroupBox" name="groupBox_realtime">
+      <property name="title">
+       <string>即时信息</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget_show_msg"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="1" rowspan="3">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0" colspan="2">
+      <item row="0" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_stock">
         <property name="title">
          <string>股票代码</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>600111</string>
+            <string>主代码</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="QPushButton" name="pushButton_search">
-           <property name="maximumSize">
-            <size>
-             <width>200</width>
-             <height>16777215</height>
-            </size>
+         <item row="6" column="2">
+          <widget class="QPushButton" name="pushButton_clear">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 170, 255);</string>
            </property>
            <property name="text">
-            <string>获取</string>
+            <string>清空</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QDateEdit" name="dateEdit_2"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>副代码</string>
            </property>
           </widget>
          </item>
@@ -63,7 +145,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0">
           <widget class="QLineEdit" name="lineEdit_3">
            <property name="text">
             <string>20210801</string>
@@ -73,22 +155,15 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_4">
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="lineEdit_2">
            <property name="text">
-            <string>20210816</string>
-           </property>
-           <property name="placeholderText">
-            <string>结束日期</string>
+            <string>600111</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>结束日期</string>
-           </property>
-          </widget>
+         <item row="4" column="2">
+          <widget class="QDateEdit" name="dateEdit"/>
          </item>
          <item row="1" column="0">
           <widget class="QLineEdit" name="lineEdit_1">
@@ -96,28 +171,47 @@
             <string/>
            </property>
            <property name="text">
-            <string>000848</string>
+            <string>600733</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_3">
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>主代码</string>
+            <string>结束日期</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_4">
+         <item row="5" column="2" colspan="2">
+          <widget class="QLineEdit" name="lineEdit_4">
            <property name="text">
-            <string>副代码</string>
+            <string>20210818</string>
+           </property>
+           <property name="placeholderText">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QPushButton" name="pushButton_search">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 170, 255);</string>
+           </property>
+           <property name="text">
+            <string>获取</string>
            </property>
           </widget>
          </item>
         </layout>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="11" column="0" colspan="3">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -130,20 +224,49 @@
         </property>
        </spacer>
       </item>
+      <item row="2" column="2">
+       <widget class="QComboBox" name="comboBox_3"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="comboBox_2"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QComboBox" name="comboBox"/>
+      </item>
      </layout>
     </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>进度</string>
+    <item row="3" column="2" rowspan="2" colspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_daily">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <attribute name="title">
+        <string>日走势图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_30_K">
+       <attribute name="title">
+        <string>30日K线图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
-    </item>
-    <item row="2" column="2" colspan="2">
-     <widget class="QListWidget" name="listWidget_show_msg"/>
-    </item>
-    <item row="4" column="2" colspan="2">
-     <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
     </item>
    </layout>
   </widget>
@@ -152,7 +275,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>784</width>
+     <width>866</width>
      <height>23</height>
     </rect>
    </property>
