@@ -140,7 +140,8 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.timer.timeout.connect(self.line)
         self.timer.start(2000)
         self.work = work_thread()
-        self.comboBox.addItems(['--请选择--', '深圳市场', '上海市场'])
+        self.read_csv()
+        self.comboBox.addItems(self.csv_SH.values[0])
         self.slot_signal()
 
     def slot_signal(self):
@@ -202,8 +203,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.listWidget_show_msg.clear()
 
     def read_csv(self):
-        self.csv_SH = pd.read_csv('Listed_company_msg/tushare_stock_basic_SH.csv')
+        self.csv_SH = pd.read_csv('Listed_company_msg/tushare_stock_basic_SH.csv', usecols=[2])
         self.csv_SZ = pd.read_csv('Listed_company_msg/tushare_stock_basic_SZ.csv')
+        print(type(self.csv_SH.values[0]))
 
 
 if __name__ == '__main__':
