@@ -111,13 +111,6 @@
          <string>股票代码</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>主代码</string>
-           </property>
-          </widget>
-         </item>
          <item row="6" column="2">
           <widget class="QPushButton" name="pushButton_clear">
            <property name="styleSheet">
@@ -128,43 +121,6 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QDateEdit" name="dateEdit_2"/>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>副代码</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>开始日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLineEdit" name="lineEdit_3">
-           <property name="text">
-            <string>20210801</string>
-           </property>
-           <property name="placeholderText">
-            <string>开始日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="text">
-            <string>600111</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QDateEdit" name="dateEdit"/>
-         </item>
          <item row="1" column="0">
           <widget class="QLineEdit" name="lineEdit_1">
            <property name="inputMask">
@@ -172,23 +128,6 @@
            </property>
            <property name="text">
             <string>600733</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>结束日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2" colspan="2">
-          <widget class="QLineEdit" name="lineEdit_4">
-           <property name="text">
-            <string>20210818</string>
-           </property>
-           <property name="placeholderText">
-            <string>结束日期</string>
            </property>
           </widget>
          </item>
@@ -207,6 +146,67 @@
             <string>获取</string>
            </property>
           </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="text">
+            <string>600111</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2" colspan="2">
+          <widget class="QLineEdit" name="lineEdit_4">
+           <property name="text">
+            <string>20210818</string>
+           </property>
+           <property name="placeholderText">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>副代码</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QDateEdit" name="dateEdit_end"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>主代码</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="text">
+            <string>20210801</string>
+           </property>
+           <property name="placeholderText">
+            <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QDateEdit" name="dateEdit_begin"/>
          </item>
         </layout>
        </widget>
@@ -276,7 +276,7 @@
      <x>0</x>
      <y>0</y>
      <width>866</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
