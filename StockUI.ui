@@ -18,80 +18,21 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="3">
+    <item row="0" column="2">
      <widget class="QProgressBar" name="progressBar_stock">
       <property name="value">
        <number>100</number>
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="0" column="1">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>进度</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1" rowspan="2">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>我的盈亏信息</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="2">
-        <widget class="QCheckBox" name="checkBox_remember">
-         <property name="text">
-          <string>记住我</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="6">
-        <widget class="QListView" name="listView_person_msg"/>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>收益计算</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>我的本金</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_my_money">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="maximum">
-          <double>10000000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2" colspan="2">
+    <item row="1" column="1" colspan="2">
      <widget class="QGroupBox" name="groupBox_realtime">
       <property name="title">
        <string>即时信息</string>
@@ -103,8 +44,11 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="3">
+    <item row="0" column="0" rowspan="3">
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="2">
+       <widget class="QComboBox" name="comboBox_3"/>
+      </item>
       <item row="0" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_stock">
         <property name="title">
@@ -224,9 +168,6 @@
         </property>
        </spacer>
       </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_3"/>
-      </item>
       <item row="2" column="1">
        <widget class="QComboBox" name="comboBox_2"/>
       </item>
@@ -235,7 +176,7 @@
       </item>
      </layout>
     </item>
-    <item row="3" column="2" rowspan="2" colspan="2">
+    <item row="3" column="1" rowspan="2" colspan="2">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>0</number>
@@ -268,6 +209,65 @@
       </widget>
      </widget>
     </item>
+    <item row="3" column="0" rowspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>我的盈亏信息</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>我的本金</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox_my_money">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="maximum">
+          <double>10000000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>收益计算</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="checkBox_remember">
+         <property name="text">
+          <string>记住我</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="0" colspan="5">
+        <widget class="QListWidget" name="listWidget_person_msg"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -276,7 +276,7 @@
      <x>0</x>
      <y>0</y>
      <width>866</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">

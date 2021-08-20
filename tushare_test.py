@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer
 from PyQt5.QtGui import QIcon
 import pyqtgraph as pg
+import numpy as np
 import sys
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
@@ -116,11 +117,12 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.flag = True
+        self.csv_flag = True
         self.setWindowIcon(QIcon("Icons/main_icon.ico"))
         self.mouth_k = self.graphicsView_matplot.addPlot(title="30K线图")
         self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
         self.daily_k.setXRange(0, 240)
+        self.arr_data = []
         self.line_list_time = [0]
         self.line_list_price = [40.18]
         self.process_value = 100 / 7200
@@ -140,18 +142,47 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.timer.timeout.connect(self.line)
         self.timer.start(2000)
         self.work = work_thread()
-        self.read_csv()
         self.comboBox.addItems(['--请选择--', '上海市场', '深圳市场'])
-        self.comboBox_2.addItems(self.csv_SH.values[0])
-        print(len(self.dateEdit_begin.text()))
         self.slot_signal()
 
+    def combobox_select(self):
+        if self.comboBox.currentText() == '--请选择--':
+            self.comboBox_2.clear()
+            self.comboBox_3.clear()
+        elif self.comboBox.currentText() == '上海市场':
+            self.comboBox_2.clear()
+            self.comboBox_3.clear()
+            self.comboBox_2.addItems(self.read_csv(True, 2))
+            self.comboBox_3.addItems(self.read_csv(True, 0))
+        else:
+            self.comboBox_2.clear()
+            self.comboBox_3.clear()
+            self.comboBox_2.addItems(self.read_csv(False, 2))
+            self.comboBox_3.addItems(self.read_csv(False, 0))
+
+    def combobox2_select(self):
+        index = self.comboBox_2.currentIndex()
+        self.comboBox_3.setCurrentIndex(index)
+
     def slot_signal(self):
+        self.comboBox.activated.connect(self.combobox_select)
+        self.comboBox_2.activated.connect(self.combobox2_select)
+        self.pushButton.clicked.connect(self.profit)
         self.pushButton_search.clicked.connect(self.work_event)
         self.pushButton_clear.clicked.connect(self.work_clear)
         self.lineEdit_1.textChanged.connect(self.k_plot)
         self.lineEdit_3.textChanged.connect(self.k_plot)
         self.lineEdit_4.textChanged.connect(self.k_plot)
+
+    def profit(self):
+        self.listWidget_person_msg.clear()
+        config_rw.config.read('message.ini')
+        self.listWidget_person_msg.addItems(['今日盈亏' + ':' + config_rw.config['profit_message']['今日盈亏'],
+                                             '资产剩余' + ':' + config_rw.config['profit_message']['资产剩余'],
+                                             '总收益率' + ':' + config_rw.config['profit_message']['总收益率'],
+                                             '持有公司' + ':' + config_rw.config['profit_message']['持有公司'],
+                                             '持仓占比' + ':' + config_rw.config['profit_message']['持仓占比'],
+                                             '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
 
     def line(self):
         self.time_begin = datetime.datetime.now().strftime('%H%M')
@@ -194,19 +225,19 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.mouth_k.showGrid(y=True)
 
     def work_event(self):
-        if self.flag:
-            self.work.start()
-            # self.flag = False
-        else:
-            self.work.wait()
-            self.flag = True
+        self.work.start()
 
     def work_clear(self):
         self.listWidget_show_msg.clear()
 
-    def read_csv(self):
-        self.csv_SH = pd.read_csv('Listed_company_msg/tushare_stock_basic_SH.csv', usecols=[2])
-        self.csv_SZ = pd.read_csv('Listed_company_msg/tushare_stock_basic_SZ.csv')
+    def read_csv(self, csv_flag, i):
+        if csv_flag:
+            csv_data = pd.read_csv('Listed_company_msg/tushare_stock_basic_SH.csv', usecols=[i])
+        else:
+            csv_data = pd.read_csv('Listed_company_msg/tushare_stock_basic_SZ.csv', usecols=[i])
+        arr = np.array(csv_data)
+        self.arr_data = arr.flatten()
+        return self.arr_data
 
 
 if __name__ == '__main__':
