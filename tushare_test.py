@@ -92,7 +92,7 @@ class work_thread(QThread):
                 self.connect(str(details1))
                 self.trigger.emit(df_percentages1)
                 print(details, details1)
-                if df_percentages > 10.0 or df_percentages1 > 5.0:
+                if df_percentages > 10.0 or df_percentages1 > 10.0:
                     tkinter.messagebox.showwarning('warning', '干')
             except Exception as e:
                 print(e)
@@ -173,6 +173,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.lineEdit_1.textChanged.connect(self.k_plot)
         self.lineEdit_3.textChanged.connect(self.k_plot)
         self.lineEdit_4.textChanged.connect(self.k_plot)
+
+    def asd(self):
+        print('1')
 
     def profit(self):
         self.listWidget_person_msg.clear()
