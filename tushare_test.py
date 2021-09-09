@@ -5,8 +5,9 @@ import datetime
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt
 from PyQt5.QtGui import QIcon
+import qtawesome as qw
 import pyqtgraph as pg
 import numpy as np
 import sys
@@ -246,5 +247,6 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui = main_ui()
+    # ui.setWindowFlag(Qt.FramelessWindowHint)
     ui.show()
     sys.exit(app.exec_())
