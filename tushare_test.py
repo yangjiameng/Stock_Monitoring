@@ -141,6 +141,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.k_plot()
         self.timer = QTimer()
         self.timer.timeout.connect(self.line)
+        self.timer.timeout.connect(self.sell_and_buy_price_realtime)
         self.timer.start(2000)
         self.work = work_thread()
         self.comboBox.addItems(['--请选择--', '上海市场', '深圳市场'])
@@ -242,6 +243,40 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         arr = np.array(csv_data)
         self.arr_data = arr.flatten()
         return self.arr_data
+
+    def sell_and_buy_price_realtime(self):
+        data = ts.get_realtime_quotes(self.lineEdit_1.text())
+        sell_buy_amount = []
+        df = pd.DataFrame(data=data)
+        sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
+                                df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
+        sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
+                                df.loc[0, 'b4_v'], df.loc[0, 'b5_v']))
+        sell_buy_amount.append((df.loc[0, 'a1_p'], df.loc[0, 'a2_p'], df.loc[0, 'a3_p'],
+                                df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
+        sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
+                                df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
+        self.label_sell1.setText('卖1    ' + str(float(sell_buy_amount[2][0])))
+        self.label_sell2.setText('卖2    ' + sell_buy_amount[2][1])
+        self.label_sell3.setText('卖3    ' + sell_buy_amount[2][2])
+        self.label_sell4.setText('卖4    ' + sell_buy_amount[2][3])
+        self.label_sell5.setText('卖5    ' + sell_buy_amount[2][4])
+        self.label_buy1.setText('买1    ' + sell_buy_amount[3][0])
+        self.label_buy2.setText('买2    ' + sell_buy_amount[3][1])
+        self.label_buy3.setText('买3    ' + sell_buy_amount[3][2])
+        self.label_buy4.setText('买4    ' + sell_buy_amount[3][3])
+        self.label_buy5.setText('买5    ' + sell_buy_amount[3][4])
+        self.label_s1.setText(sell_buy_amount[0][0])
+        self.label_s2.setText(sell_buy_amount[0][1])
+        self.label_s3.setText(sell_buy_amount[0][2])
+        self.label_s4.setText(sell_buy_amount[0][3])
+        self.label_s5.setText(sell_buy_amount[0][4])
+        self.label_b1.setText(sell_buy_amount[1][0])
+        self.label_b2.setText(sell_buy_amount[1][1])
+        self.label_b3.setText(sell_buy_amount[1][2])
+        self.label_b4.setText(sell_buy_amount[1][3])
+        self.label_b5.setText(sell_buy_amount[1][4])
+        # self.progressBar_s1.se
 
 
 if __name__ == '__main__':

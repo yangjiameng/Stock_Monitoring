@@ -25,6 +25,389 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="2">
+     <widget class="QProgressBar" name="progressBar_stock">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>3</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="value">
+       <number>80</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>实时委托详情</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="1" column="6">
+        <widget class="QLabel" name="label_b2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_sell2">
+         <property name="text">
+          <string>卖2   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QProgressBar" name="progressBar_s4">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_sell5">
+         <property name="text">
+          <string>卖5   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_buy1">
+         <property name="text">
+          <string>买1   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="4">
+        <widget class="QLabel" name="label_buy4">
+         <property name="text">
+          <string>买4   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_s4">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QProgressBar" name="progressBar_s5">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QProgressBar" name="progressBar_b3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_s1">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QProgressBar" name="progressBar_s1">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_sell3">
+         <property name="text">
+          <string>卖3   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="6">
+        <widget class="QLabel" name="label_b5">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QLabel" name="label_buy3">
+         <property name="text">
+          <string>买3   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_s2">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QProgressBar" name="progressBar_s2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QProgressBar" name="progressBar_s3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5">
+        <widget class="QProgressBar" name="progressBar_b4">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_sell1">
+         <property name="text">
+          <string>卖1   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLabel" name="label_buy5">
+         <property name="text">
+          <string>买5   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QLabel" name="label_b1">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_sell4">
+         <property name="text">
+          <string>卖4   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="6">
+        <widget class="QLabel" name="label_b4">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QProgressBar" name="progressBar_b2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_s3">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLabel" name="label_b3">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLabel" name="label_buy2">
+         <property name="text">
+          <string>买2   0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="label_s5">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QProgressBar" name="progressBar_b1">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="5">
+        <widget class="QProgressBar" name="progressBar_b5">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>3</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>50</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" rowspan="5">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="1" rowspan="2" colspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_daily">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <attribute name="title">
+        <string>日走势图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_30_K">
+       <attribute name="title">
+        <string>30日K线图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QGroupBox" name="groupBox_realtime">
+      <property name="title">
+       <string>即时信息</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget_show_msg"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="3" column="0" rowspan="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
@@ -108,80 +491,20 @@
       </layout>
      </widget>
     </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QGroupBox" name="groupBox_realtime">
-      <property name="title">
-       <string>即时信息</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QListWidget" name="listWidget_show_msg"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QProgressBar" name="progressBar_stock">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>3</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="value">
-       <number>80</number>
-      </property>
-      <property name="textVisible">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" rowspan="2" colspan="2">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_daily">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::DefaultContextMenu</enum>
-       </property>
-       <attribute name="title">
-        <string>日走势图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_30_K">
-       <attribute name="title">
-        <string>30日K线图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="0" column="0" rowspan="3">
+    <item row="0" column="0" rowspan="2">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QComboBox" name="comboBox"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_2"/>
-      </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_3"/>
+      <item row="11" column="0" colspan="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="0" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_stock">
@@ -189,34 +512,10 @@
          <string>股票代码</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="5" column="0">
-          <widget class="QLineEdit" name="lineEdit_3">
-           <property name="text">
-            <string>20210801</string>
-           </property>
-           <property name="placeholderText">
-            <string>开始日期</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="3">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>副代码</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>结束日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>主代码</string>
            </property>
           </widget>
          </item>
@@ -230,10 +529,27 @@
            </property>
           </widget>
          </item>
+         <item row="5" column="0">
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="text">
+            <string>20210801</string>
+           </property>
+           <property name="placeholderText">
+            <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
             <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>主代码</string>
            </property>
           </widget>
          </item>
@@ -280,6 +596,13 @@
          <item row="4" column="3">
           <widget class="QDateEdit" name="dateEdit_end"/>
          </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
          <item row="5" column="3">
           <widget class="QLineEdit" name="lineEdit_4">
            <property name="text">
@@ -293,258 +616,31 @@
         </layout>
        </widget>
       </item>
-      <item row="11" column="0" colspan="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="1" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox_daily_up">
+        <property name="title">
+         <string>每日涨跌停统计 </string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QComboBox" name="comboBox"/>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_2"/>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_3"/>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </item>
-    <item row="2" column="1" colspan="2">
-     <widget class="QGroupBox" name="groupBox_2">
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
-       <string>实时委托详情</string>
+       <string>实时基本信息</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_8">
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_sell2">
-         <property name="text">
-          <string>卖2    40</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_buy3">
-         <property name="text">
-          <string>买3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QProgressBar" name="progressBar_4">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>20</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QProgressBar" name="progressBar_5">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>60</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_sell4">
-         <property name="text">
-          <string>卖4</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_buy2">
-         <property name="text">
-          <string>买2</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_buy1">
-         <property name="text">
-          <string>买1</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QProgressBar" name="progressBar_3">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>70</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QProgressBar" name="progressBar_2">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>30</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_sell3">
-         <property name="text">
-          <string>卖3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_sell5">
-         <property name="text">
-          <string>卖5</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_sell1">
-         <property name="text">
-          <string>卖1    50</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="label_buy4">
-         <property name="text">
-          <string>买4</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QProgressBar" name="progressBar">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLabel" name="label_buy5">
-         <property name="text">
-          <string>买5</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QProgressBar" name="progressBar_6">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QProgressBar" name="progressBar_7">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QProgressBar" name="progressBar_8">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="QProgressBar" name="progressBar_9">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="3">
-        <widget class="QProgressBar" name="progressBar_10">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>3</height>
-          </size>
-         </property>
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="textVisible">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </item>
    </layout>
@@ -555,7 +651,7 @@
      <x>0</x>
      <y>0</y>
      <width>866</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
