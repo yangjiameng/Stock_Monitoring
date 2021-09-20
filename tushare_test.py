@@ -13,6 +13,7 @@ import numpy as np
 import sys
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
+from Stock_Monitoring.login_launch import launcher_ui
 
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
@@ -140,7 +141,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.doubleSpinBox_my_money.setValue(config_rw.config_read())
         self.k_plot()
         self.timer = QTimer()
-        self.timer.timeout.connect(self.line)
+        # self.timer.timeout.connect(self.line)
         self.timer.timeout.connect(self.sell_and_buy_price_realtime)
         self.timer.start(2000)
         self.work = work_thread()
@@ -256,7 +257,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                 df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
         sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
                                 df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
-        self.label_sell1.setText('卖1    ' + str(float(sell_buy_amount[2][0])))
+        self.label_sell1.setText('卖1    ' + sell_buy_amount[2][0])
         self.label_sell2.setText('卖2    ' + sell_buy_amount[2][1])
         self.label_sell3.setText('卖3    ' + sell_buy_amount[2][2])
         self.label_sell4.setText('卖4    ' + sell_buy_amount[2][3])
@@ -276,12 +277,24 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.label_b3.setText(sell_buy_amount[1][2])
         self.label_b4.setText(sell_buy_amount[1][3])
         self.label_b5.setText(sell_buy_amount[1][4])
-        # self.progressBar_s1.se
+        self.max_value(sell_buy_amount)
+
+    def max_value(self, sell_buy_amount):
+        max_list = []
+        value_len = [self.progressBar_s1, self.progressBar_s2, self.progressBar_s3,
+                     self.progressBar_s4, self.progressBar_s5,
+                     self.progressBar_b1, self.progressBar_b2, self.progressBar_b3,
+                     self.progressBar_b4, self.progressBar_b5]
+        for i in range(0, 2):
+            for j in range(0, 5):
+                max_list.append(int(sell_buy_amount[i][j]))
+        num = max(max_list)
+        for k in range(0, 10):
+            value_len[k].setValue(int(100 * max_list[k] / num))
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui = main_ui()
-    # ui.setWindowFlag(Qt.FramelessWindowHint)
     ui.show()
     sys.exit(app.exec_())
