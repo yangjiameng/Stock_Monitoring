@@ -9,7 +9,10 @@ def config_write():
                          'start_date': '20210801',
                          'end_date': '20210818'
                          }
-    config['personal_message'] = {'money': '100000'}
+    config['personal_message'] = {'money': '100000',
+                                  'username': 'user',
+                                  'password': '',
+                                  'remember': '-1'}
     config['profit_message'] = {'今日盈亏': '10127.40',
                                 '资产剩余': '120325.48',
                                 '总收益率': '9.44%%',
