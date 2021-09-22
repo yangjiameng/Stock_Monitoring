@@ -17,7 +17,6 @@ class launcher_ui(QDialog, Ui_login):
         self.value = 10
         self.comboBox_user.addItems([config_rw.config['personal_message']['username'], 'clear'])
         self.lineEdit_password.setText(config_rw.config['personal_message']['password'])
-        # self.checkBox_remeber.setChecked(True)
         self.pushButton_login.clicked.connect(self.login_push)
 
     def login_push(self):
