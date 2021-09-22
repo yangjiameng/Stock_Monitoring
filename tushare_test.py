@@ -13,7 +13,6 @@ import numpy as np
 import sys
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
-from Stock_Monitoring.login_launch import launcher_ui
 
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
@@ -257,16 +256,16 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                 df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
         sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
                                 df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
-        self.label_sell1.setText('卖1    ' + sell_buy_amount[2][0])
-        self.label_sell2.setText('卖2    ' + sell_buy_amount[2][1])
-        self.label_sell3.setText('卖3    ' + sell_buy_amount[2][2])
-        self.label_sell4.setText('卖4    ' + sell_buy_amount[2][3])
-        self.label_sell5.setText('卖5    ' + sell_buy_amount[2][4])
-        self.label_buy1.setText('买1    ' + sell_buy_amount[3][0])
-        self.label_buy2.setText('买2    ' + sell_buy_amount[3][1])
-        self.label_buy3.setText('买3    ' + sell_buy_amount[3][2])
-        self.label_buy4.setText('买4    ' + sell_buy_amount[3][3])
-        self.label_buy5.setText('买5    ' + sell_buy_amount[3][4])
+        self.label_sell1.setText('卖1    ' + format(float(sell_buy_amount[2][0]), '.2f'))
+        self.label_sell2.setText('卖2    ' + format(float(sell_buy_amount[2][1]), '.2f'))
+        self.label_sell3.setText('卖3    ' + format(float(sell_buy_amount[2][2]), '.2f'))
+        self.label_sell4.setText('卖4    ' + format(float(sell_buy_amount[2][3]), '.2f'))
+        self.label_sell5.setText('卖5    ' + format(float(sell_buy_amount[2][4]), '.2f'))
+        self.label_buy1.setText('买1    ' + format(float(sell_buy_amount[3][0]), '.2f'))
+        self.label_buy2.setText('买2    ' + format(float(sell_buy_amount[3][1]), '.2f'))
+        self.label_buy3.setText('买3    ' + format(float(sell_buy_amount[3][2]), '.2f'))
+        self.label_buy4.setText('买4    ' + format(float(sell_buy_amount[3][3]), '.2f'))
+        self.label_buy5.setText('买5    ' + format(float(sell_buy_amount[3][4]), '.2f'))
         self.label_s1.setText(sell_buy_amount[0][0])
         self.label_s2.setText(sell_buy_amount[0][1])
         self.label_s3.setText(sell_buy_amount[0][2])
