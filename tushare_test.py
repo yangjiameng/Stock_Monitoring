@@ -245,7 +245,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         return self.arr_data
 
     def sell_and_buy_price_realtime(self):
-        data = ts.get_realtime_quotes(self.lineEdit_1.text())
+        data = ts.get_realtime_quotes('000831')
         sell_buy_amount = []
         df = pd.DataFrame(data=data)
         sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
@@ -266,6 +266,17 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.label_buy3.setText('买3    ' + format(float(sell_buy_amount[3][2]), '.2f'))
         self.label_buy4.setText('买4    ' + format(float(sell_buy_amount[3][3]), '.2f'))
         self.label_buy5.setText('买5    ' + format(float(sell_buy_amount[3][4]), '.2f'))
+        # for i in range(0, 2):
+        #     a = list(sell_buy_amount[i])
+        #     for j in range(0, 5):
+        #         if a[j] == '':
+        #             a[j] = '0'
+        #         else:
+        #             c = int(a[j])
+        #             b = ()
+        #             if c >= 10000:
+        #                 c[j] = str(round(c / 10000, 2)) + '万'
+        #         print(sell_buy_amount[i][j])
         self.label_s1.setText(sell_buy_amount[0][0])
         self.label_s2.setText(sell_buy_amount[0][1])
         self.label_s3.setText(sell_buy_amount[0][2])
@@ -284,9 +295,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                      self.progressBar_s4, self.progressBar_s5,
                      self.progressBar_b1, self.progressBar_b2, self.progressBar_b3,
                      self.progressBar_b4, self.progressBar_b5]
-        for i in range(0, 2):
-            for j in range(0, 5):
-                max_list.append(int(sell_buy_amount[i][j]))
+        # self.progressBar_s1.setStyleSheet('')
+        # for i in range(0, 2):
+        #     for j in range(0, 5):
+        #         max_list.append(int(sell_buy_amount[i][j]))
         num = max(max_list)
         for k in range(0, 10):
             value_len[k].setValue(int(100 * max_list[k] / num))

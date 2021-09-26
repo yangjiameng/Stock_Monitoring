@@ -18,6 +18,52 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="title">
+       <string>实时基本信息</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" rowspan="2" colspan="2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_daily">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="contextMenuPolicy">
+        <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <attribute name="title">
+        <string>日走势图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_30_K">
+       <attribute name="title">
+        <string>30日K线图</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
     <item row="3" column="0" rowspan="2">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
@@ -101,43 +147,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QProgressBar" name="progressBar_stock">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>3</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="value">
-       <number>80</number>
-      </property>
-      <property name="textVisible">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="2">
-     <widget class="QGroupBox" name="groupBox_realtime">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>240</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>即时信息</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QListWidget" name="listWidget_show_msg"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="0" column="0" rowspan="2">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="11" column="0" colspan="3">
@@ -152,6 +161,116 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox_stock">
+        <property name="title">
+         <string>股票代码</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_1">
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="text">
+            <string>600733</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>副代码</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QLineEdit" name="lineEdit_2">
+           <property name="text">
+            <string>600111</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QDateEdit" name="dateEdit_begin"/>
+         </item>
+         <item row="5" column="4">
+          <widget class="QLineEdit" name="lineEdit_4">
+           <property name="text">
+            <string>20210818</string>
+           </property>
+           <property name="placeholderText">
+            <string>结束日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>主代码</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="4">
+          <widget class="QDateEdit" name="dateEdit_end"/>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="text">
+            <string>20210801</string>
+           </property>
+           <property name="placeholderText">
+            <string>开始日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="4">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="pushButton_search">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>获取</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_clear">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>清空</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item row="1" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_daily_up">
@@ -183,164 +302,7 @@
         </layout>
        </widget>
       </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QGroupBox" name="groupBox_stock">
-        <property name="title">
-         <string>股票代码</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="3">
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>副代码</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="lineEdit_1">
-           <property name="inputMask">
-            <string/>
-           </property>
-           <property name="text">
-            <string>600733</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLineEdit" name="lineEdit_3">
-           <property name="text">
-            <string>20210801</string>
-           </property>
-           <property name="placeholderText">
-            <string>开始日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>开始日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>主代码</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QDateEdit" name="dateEdit_begin"/>
-         </item>
-         <item row="6" column="3">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QPushButton" name="pushButton_search">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>获取</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_clear">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>清空</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="3">
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="text">
-            <string>600111</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="3">
-          <widget class="QDateEdit" name="dateEdit_end"/>
-         </item>
-         <item row="2" column="3">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>结束日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="3">
-          <widget class="QLineEdit" name="lineEdit_4">
-           <property name="text">
-            <string>20210818</string>
-           </property>
-           <property name="placeholderText">
-            <string>结束日期</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
      </layout>
-    </item>
-    <item row="3" column="1" rowspan="2" colspan="2">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_daily">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::DefaultContextMenu</enum>
-       </property>
-       <attribute name="title">
-        <string>日走势图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <widget class="GraphicsLayoutWidget" name="graphicsView_daily_line"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_30_K">
-       <attribute name="title">
-        <string>30日K线图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="GraphicsLayoutWidget" name="graphicsView_matplot"/>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="title">
-       <string>实时基本信息</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>进度</string>
-      </property>
-     </widget>
     </item>
     <item row="2" column="1" colspan="2">
      <widget class="QGroupBox" name="groupBox_2">
@@ -362,6 +324,11 @@
            <width>16777215</width>
            <height>3</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
          </property>
          <property name="value">
           <number>50</number>
@@ -386,6 +353,11 @@
            <height>3</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
+         </property>
          <property name="value">
           <number>50</number>
          </property>
@@ -408,6 +380,11 @@
            <width>16777215</width>
            <height>3</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
          </property>
          <property name="value">
           <number>50</number>
@@ -481,6 +458,11 @@
            <height>3</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
+         </property>
          <property name="value">
           <number>50</number>
          </property>
@@ -511,6 +493,11 @@
            <height>3</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
+         </property>
          <property name="value">
           <number>50</number>
          </property>
@@ -534,6 +521,11 @@
            <height>3</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
+         </property>
          <property name="value">
           <number>50</number>
          </property>
@@ -549,6 +541,11 @@
            <width>16777215</width>
            <height>3</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
          </property>
          <property name="value">
           <number>50</number>
@@ -572,6 +569,11 @@
            <width>16777215</width>
            <height>3</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
          </property>
          <property name="value">
           <number>50</number>
@@ -617,6 +619,11 @@
            <height>3</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
+         </property>
          <property name="value">
           <number>50</number>
          </property>
@@ -648,7 +655,9 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">QProgressBar::chunk {
+	background-color: rgb(255, 0, 0);
+}</string>
          </property>
          <property name="value">
           <number>50</number>
@@ -659,6 +668,50 @@
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QGroupBox" name="groupBox_realtime">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>240</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>即时信息</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget_show_msg"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>进度</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QProgressBar" name="progressBar_stock">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>3</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="value">
+       <number>80</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
    </layout>
