@@ -129,6 +129,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.process_value = 100 / 7200
         self.step = 100 / 7200
         self.pre_close = ''
+        config_rw.config.read('message.ini')
         self.lineEdit_1.setText(config_rw.config['DEFAULT']['first_code'])
         self.lineEdit_2.setText(config_rw.config['DEFAULT']['second_code'])
         self.time_begin = datetime.datetime.now().strftime('%H%M')
@@ -316,10 +317,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                 value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(255, 0, 0);}')
 
     def open_excel(self):
-        get_date()
-        self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
-        # openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls)')
-        # print(type(openfile_name[0]))
+        # get_date()
+        # self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
+        openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls)')
+        print(type(openfile_name[0]))
 
 
 if __name__ == '__main__':
