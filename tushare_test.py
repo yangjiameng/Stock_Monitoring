@@ -4,7 +4,7 @@ from time import sleep
 import datetime
 import tkinter.messagebox
 import tkinter
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt
 from PyQt5.QtGui import QIcon
 import qtawesome as qw
@@ -13,6 +13,7 @@ import numpy as np
 import sys
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
+from Stock_Monitoring.up_down_stock_list import get_date
 
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
@@ -67,7 +68,7 @@ def ts_pro_api(code, start, end):
             result_low_green.append(df_low)
             result_date_green.append(df.shape[0] - i)
     return result_open_red, result_close_red, result_date_red, result_open_green, result_close_green, \
-        result_date_green, result_high_red, result_low_red, result_high_green, result_low_green
+           result_date_green, result_high_red, result_low_red, result_high_green, result_low_green
 
 
 class work_thread(QThread):
@@ -111,7 +112,6 @@ class work_thread(QThread):
 
 
 class main_ui(QMainWindow, Ui_Stock_Monitoring):
-
     pg.setConfigOption("background", "w")
     pg.setConfigOption("foreground", "k")
 
@@ -128,6 +128,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.line_list_price = [40.18]
         self.process_value = 100 / 7200
         self.step = 100 / 7200
+        self.pre_close = ''
+        self.lineEdit_1.setText(config_rw.config['DEFAULT']['first_code'])
+        self.lineEdit_2.setText(config_rw.config['DEFAULT']['second_code'])
         self.time_begin = datetime.datetime.now().strftime('%H%M')
         if '0930' <= self.time_begin <= '1130':
             self.process_value = (int(self.time_begin) - 930) * 30 * self.step
@@ -172,6 +175,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.pushButton.clicked.connect(self.profit)
         self.pushButton_search.clicked.connect(self.work_event)
         self.pushButton_clear.clicked.connect(self.work_clear)
+        self.pushButton_get_zd_data.clicked.connect(self.open_excel)
         self.lineEdit_1.textChanged.connect(self.k_plot)
         self.lineEdit_3.textChanged.connect(self.k_plot)
         self.lineEdit_4.textChanged.connect(self.k_plot)
@@ -218,7 +222,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         start = self.lineEdit_3.text()
         end = self.lineEdit_4.text()
         open_price_r, close_price_r, date_r, open_price_g, close_price_g, date_g, high_r, \
-            low_r, high_g, low_g = ts_pro_api(code, start, end)
+        low_r, high_g, low_g = ts_pro_api(code, start, end)
         bg1 = pg.BarGraphItem(y0=open_price_r, x=date_r, height=close_price_r, width=0.3, brush='r')
         bg2 = pg.BarGraphItem(y0=open_price_g, x=date_g, height=close_price_g, width=0.3, brush='g')
         for i in range(0, len(date_r)):
@@ -245,9 +249,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         return self.arr_data
 
     def sell_and_buy_price_realtime(self):
-        data = ts.get_realtime_quotes('000831')
+        data = ts.get_realtime_quotes('000815')
         sell_buy_amount = []
         df = pd.DataFrame(data=data)
+        self.pre_close = df.loc[0, 'pre_close']
         sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
                                 df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
         sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
@@ -291,17 +296,30 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def max_value(self, sell_buy_amount):
         max_list = []
+        price_list = []
         value_len = [self.progressBar_s1, self.progressBar_s2, self.progressBar_s3,
                      self.progressBar_s4, self.progressBar_s5,
                      self.progressBar_b1, self.progressBar_b2, self.progressBar_b3,
                      self.progressBar_b4, self.progressBar_b5]
-        # self.progressBar_s1.setStyleSheet('')
-        # for i in range(0, 2):
-        #     for j in range(0, 5):
-        #         max_list.append(int(sell_buy_amount[i][j]))
+        for i in range(0, 2):
+            for j in range(0, 5):
+                max_list.append(int(sell_buy_amount[i][j]))
+        for h in range(2, 4):
+            for g in range(0, 5):
+                price_list.append(float(sell_buy_amount[h][g]))
         num = max(max_list)
         for k in range(0, 10):
             value_len[k].setValue(int(100 * max_list[k] / num))
+            if price_list[k] < float(self.pre_close):
+                value_len[k].setStyleSheet('')
+            else:
+                value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(255, 0, 0);}')
+
+    def open_excel(self):
+        get_date()
+        self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
+        # openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls)')
+        # print(type(openfile_name[0]))
 
 
 if __name__ == '__main__':

@@ -21,8 +21,13 @@
     <item row="2" column="0">
      <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
-       <string>实时基本信息</string>
+       <string>涨跌基本信息</string>
       </property>
+      <layout class="QGridLayout" name="gridLayout_9">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget_zd_msg"/>
+       </item>
+      </layout>
      </widget>
     </item>
     <item row="3" column="1" rowspan="2" colspan="2">
@@ -149,20 +154,7 @@
     </item>
     <item row="0" column="0" rowspan="2">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="11" column="0" colspan="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" colspan="3">
+      <item row="0" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_stock">
         <property name="title">
          <string>股票代码</string>
@@ -272,7 +264,7 @@
         </layout>
        </widget>
       </item>
-      <item row="1" column="0" colspan="3">
+      <item row="1" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_daily_up">
         <property name="title">
          <string>每日涨跌停统计 </string>
@@ -281,7 +273,7 @@
          <item>
           <widget class="QComboBox" name="comboBox">
            <property name="editable">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -296,6 +288,19 @@
           <widget class="QComboBox" name="comboBox_3">
            <property name="editable">
             <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_get_zd_data">
+           <property name="maximumSize">
+            <size>
+             <width>70</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>获取数据</string>
            </property>
           </widget>
          </item>
@@ -326,9 +331,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -354,9 +357,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -382,9 +383,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -459,9 +458,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -494,9 +491,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -522,9 +517,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -543,9 +536,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -571,9 +562,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -620,9 +609,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -655,9 +642,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QProgressBar::chunk {
-	background-color: rgb(255, 0, 0);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="value">
           <number>50</number>
@@ -722,7 +707,7 @@
      <x>0</x>
      <y>0</y>
      <width>873</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -730,6 +715,7 @@
      <string>文件</string>
     </property>
     <addaction name="menu_new"/>
+    <addaction name="menu_open"/>
    </widget>
    <widget class="QMenu" name="menu_edit">
     <property name="title">
@@ -761,6 +747,11 @@
   <action name="menu_select">
    <property name="text">
     <string>选择</string>
+   </property>
+  </action>
+  <action name="menu_open">
+   <property name="text">
+    <string>打开</string>
    </property>
   </action>
  </widget>
