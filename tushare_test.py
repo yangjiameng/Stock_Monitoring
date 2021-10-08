@@ -11,6 +11,7 @@ import qtawesome as qw
 import pyqtgraph as pg
 import numpy as np
 import sys
+import os
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 from Stock_Monitoring.up_down_stock_list import get_date
@@ -250,7 +251,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         return self.arr_data
 
     def sell_and_buy_price_realtime(self):
-        data = ts.get_realtime_quotes('000815')
+        data = ts.get_realtime_quotes('600111')
         sell_buy_amount = []
         df = pd.DataFrame(data=data)
         self.pre_close = df.loc[0, 'pre_close']
@@ -272,27 +273,21 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.label_buy3.setText('买3    ' + format(float(sell_buy_amount[3][2]), '.2f'))
         self.label_buy4.setText('买4    ' + format(float(sell_buy_amount[3][3]), '.2f'))
         self.label_buy5.setText('买5    ' + format(float(sell_buy_amount[3][4]), '.2f'))
-        # for i in range(0, 2):
-        #     a = list(sell_buy_amount[i])
-        #     for j in range(0, 5):
-        #         if a[j] == '':
-        #             a[j] = '0'
-        #         else:
-        #             c = int(a[j])
-        #             b = ()
-        #             if c >= 10000:
-        #                 c[j] = str(round(c / 10000, 2)) + '万'
-        #         print(sell_buy_amount[i][j])
-        self.label_s1.setText(sell_buy_amount[0][0])
-        self.label_s2.setText(sell_buy_amount[0][1])
-        self.label_s3.setText(sell_buy_amount[0][2])
-        self.label_s4.setText(sell_buy_amount[0][3])
-        self.label_s5.setText(sell_buy_amount[0][4])
-        self.label_b1.setText(sell_buy_amount[1][0])
-        self.label_b2.setText(sell_buy_amount[1][1])
-        self.label_b3.setText(sell_buy_amount[1][2])
-        self.label_b4.setText(sell_buy_amount[1][3])
-        self.label_b5.setText(sell_buy_amount[1][4])
+        label_sb = [self.label_s1, self.label_s2, self.label_s3, self.label_s4, self.label_s5,
+                    self.label_b1, self.label_b2, self.label_b3, self.label_b4, self.label_b5]
+        value_sb = [sell_buy_amount[0][0], sell_buy_amount[0][1], sell_buy_amount[0][2],
+                    sell_buy_amount[0][3], sell_buy_amount[0][4], sell_buy_amount[1][0],
+                    sell_buy_amount[1][1], sell_buy_amount[1][2], sell_buy_amount[1][3],
+                    sell_buy_amount[1][4]]
+        for i in range(0, 10):
+            if value_sb[i] == '':
+                label_sb[i].setText('0')
+            else:
+                c = int(value_sb[i])
+                if c >= 10000:
+                    label_sb[i].setText(str(round(c / 10000, 2)) + '万')
+                else:
+                    label_sb[i].setText(value_sb[i])
         self.max_value(sell_buy_amount)
 
     def max_value(self, sell_buy_amount):
@@ -304,7 +299,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                      self.progressBar_b4, self.progressBar_b5]
         for i in range(0, 2):
             for j in range(0, 5):
-                max_list.append(int(sell_buy_amount[i][j]))
+                if sell_buy_amount[i][j] == '':
+                    max_list.append(0)
+                else:
+                    max_list.append(int(sell_buy_amount[i][j]))
         for h in range(2, 4):
             for g in range(0, 5):
                 price_list.append(float(sell_buy_amount[h][g]))
@@ -319,8 +317,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def open_excel(self):
         # get_date()
         # self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
-        openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls)')
-        print(type(openfile_name[0]))
+        # self.menu_open.trigger()
+        openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls , *.csv)')
+        os.system("open " + openfile_name[0])
+        print(openfile_name[0])
 
 
 if __name__ == '__main__':
