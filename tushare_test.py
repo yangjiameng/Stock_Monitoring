@@ -5,7 +5,7 @@ import datetime
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate
 from PyQt5.QtGui import QIcon
 import qtawesome as qw
 import pyqtgraph as pg
@@ -121,7 +121,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.setupUi(self)
         self.csv_flag = True
         self.setWindowIcon(QIcon("Icons/main_icon.ico"))
-        self.mouth_k = self.graphicsView_matplot.addPlot(title="30K线图")
+        self.mouth_k = self.graphicsView_matplot.addPlot()
         self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
         self.daily_k.setXRange(0, 240)
         self.arr_data = []
@@ -134,6 +134,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.lineEdit_1.setText(config_rw.config['DEFAULT']['first_code'])
         self.lineEdit_2.setText(config_rw.config['DEFAULT']['second_code'])
         self.time_begin = datetime.datetime.now().strftime('%H%M')
+        self.dateEdit_begin.setDate(QDate.fromString(config_rw.config['DEFAULT']['start_date'], "yyyyMMdd"))
+        self.dateEdit_end.setDate(QDate.fromString(datetime.datetime.now().date().strftime("%Y%m%d"), "yyyyMMdd"))
+        self.tabWidget.setCurrentIndex(1)
         if '0930' <= self.time_begin <= '1130':
             self.process_value = (int(self.time_begin) - 930) * 30 * self.step
             self.progressBar_stock.setValue(int(self.process_value))
@@ -177,10 +180,11 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.pushButton.clicked.connect(self.profit)
         self.pushButton_search.clicked.connect(self.work_event)
         self.pushButton_clear.clicked.connect(self.work_clear)
-        self.pushButton_get_zd_data.clicked.connect(self.open_excel)
-        self.lineEdit_1.textChanged.connect(self.k_plot)
-        self.lineEdit_3.textChanged.connect(self.k_plot)
-        self.lineEdit_4.textChanged.connect(self.k_plot)
+        self.pushButton_get_zd_data.clicked.connect(self.download_data)
+        self.lineEdit_1.editingFinished.connect(self.k_plot)
+        self.dateEdit_begin.dateChanged.connect(self.k_plot)
+        self.dateEdit_end.dateChanged.connect(self.k_plot)
+        self.menu_open.triggered.connect(self.open_excel)
 
     def asd(self):
         print('1')
@@ -217,12 +221,13 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
             self.daily_k.showGrid(y=True)
 
     def k_plot(self):
+        # self.lineEdit_1.hasFocus()
         self.mouth_k.clear()
         self.mouth_k.setLabel("bottom", "Time/(min)")
         self.mouth_k.setLabel("left", "Increase/(%)")
         code = self.lineEdit_1.text()
-        start = self.lineEdit_3.text()
-        end = self.lineEdit_4.text()
+        start = self.dateEdit_begin.date().toString("yyyyMMdd")
+        end = self.dateEdit_end.date().toString("yyyyMMdd")
         open_price_r, close_price_r, date_r, open_price_g, close_price_g, date_g, high_r, \
         low_r, high_g, low_g = ts_pro_api(code, start, end)
         bg1 = pg.BarGraphItem(y0=open_price_r, x=date_r, height=close_price_r, width=0.3, brush='r')
@@ -251,7 +256,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         return self.arr_data
 
     def sell_and_buy_price_realtime(self):
-        data = ts.get_realtime_quotes('600111')
+        data = ts.get_realtime_quotes('000815')
         sell_buy_amount = []
         df = pd.DataFrame(data=data)
         self.pre_close = df.loc[0, 'pre_close']
@@ -314,13 +319,15 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
             else:
                 value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(255, 0, 0);}')
 
+    def download_data(self):
+        get_date()
+        self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
+
     def open_excel(self):
-        # get_date()
-        # self.listWidget_show_msg.addItem('今日涨跌停数据下载成功！')
-        # self.menu_open.trigger()
         openfile_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'Excel files(*.xlsx , *.xls , *.csv)')
-        os.system("open " + openfile_name[0])
-        print(openfile_name[0])
+        if openfile_name[0] != '':
+            os.startfile(openfile_name[0])
+            print(openfile_name[0])
 
 
 if __name__ == '__main__':
