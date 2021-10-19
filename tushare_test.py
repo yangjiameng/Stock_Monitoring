@@ -256,44 +256,48 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         return self.arr_data
 
     def sell_and_buy_price_realtime(self):
-        data = ts.get_realtime_quotes('000815')
-        sell_buy_amount = []
-        df = pd.DataFrame(data=data)
-        self.pre_close = df.loc[0, 'pre_close']
-        sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
-                                df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
-        sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
-                                df.loc[0, 'b4_v'], df.loc[0, 'b5_v']))
-        sell_buy_amount.append((df.loc[0, 'a1_p'], df.loc[0, 'a2_p'], df.loc[0, 'a3_p'],
-                                df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
-        sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
-                                df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
-        self.label_sell1.setText('卖1    ' + format(float(sell_buy_amount[2][0]), '.2f'))
-        self.label_sell2.setText('卖2    ' + format(float(sell_buy_amount[2][1]), '.2f'))
-        self.label_sell3.setText('卖3    ' + format(float(sell_buy_amount[2][2]), '.2f'))
-        self.label_sell4.setText('卖4    ' + format(float(sell_buy_amount[2][3]), '.2f'))
-        self.label_sell5.setText('卖5    ' + format(float(sell_buy_amount[2][4]), '.2f'))
-        self.label_buy1.setText('买1    ' + format(float(sell_buy_amount[3][0]), '.2f'))
-        self.label_buy2.setText('买2    ' + format(float(sell_buy_amount[3][1]), '.2f'))
-        self.label_buy3.setText('买3    ' + format(float(sell_buy_amount[3][2]), '.2f'))
-        self.label_buy4.setText('买4    ' + format(float(sell_buy_amount[3][3]), '.2f'))
-        self.label_buy5.setText('买5    ' + format(float(sell_buy_amount[3][4]), '.2f'))
-        label_sb = [self.label_s1, self.label_s2, self.label_s3, self.label_s4, self.label_s5,
-                    self.label_b1, self.label_b2, self.label_b3, self.label_b4, self.label_b5]
-        value_sb = [sell_buy_amount[0][0], sell_buy_amount[0][1], sell_buy_amount[0][2],
-                    sell_buy_amount[0][3], sell_buy_amount[0][4], sell_buy_amount[1][0],
-                    sell_buy_amount[1][1], sell_buy_amount[1][2], sell_buy_amount[1][3],
-                    sell_buy_amount[1][4]]
-        for i in range(0, 10):
-            if value_sb[i] == '':
-                label_sb[i].setText('0')
-            else:
-                c = int(value_sb[i])
-                if c >= 10000:
-                    label_sb[i].setText(str(round(c / 10000, 2)) + '万')
+        try:
+            data = ts.get_realtime_quotes('000815')
+            sell_buy_amount = []
+            df = pd.DataFrame(data=data)
+            self.pre_close = df.loc[0, 'pre_close']
+            self.lcdNumber_current_price.display(format(float(df.loc[0, 'price']), '.2f'))
+            sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
+                                    df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
+            sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
+                                    df.loc[0, 'b4_v'], df.loc[0, 'b5_v']))
+            sell_buy_amount.append((df.loc[0, 'a1_p'], df.loc[0, 'a2_p'], df.loc[0, 'a3_p'],
+                                    df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
+            sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
+                                    df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
+            self.label_sell1.setText('卖1    ' + format(float(sell_buy_amount[2][0]), '.2f'))
+            self.label_sell2.setText('卖2    ' + format(float(sell_buy_amount[2][1]), '.2f'))
+            self.label_sell3.setText('卖3    ' + format(float(sell_buy_amount[2][2]), '.2f'))
+            self.label_sell4.setText('卖4    ' + format(float(sell_buy_amount[2][3]), '.2f'))
+            self.label_sell5.setText('卖5    ' + format(float(sell_buy_amount[2][4]), '.2f'))
+            self.label_buy1.setText('买1    ' + format(float(sell_buy_amount[3][0]), '.2f'))
+            self.label_buy2.setText('买2    ' + format(float(sell_buy_amount[3][1]), '.2f'))
+            self.label_buy3.setText('买3    ' + format(float(sell_buy_amount[3][2]), '.2f'))
+            self.label_buy4.setText('买4    ' + format(float(sell_buy_amount[3][3]), '.2f'))
+            self.label_buy5.setText('买5    ' + format(float(sell_buy_amount[3][4]), '.2f'))
+            label_sb = [self.label_s1, self.label_s2, self.label_s3, self.label_s4, self.label_s5,
+                        self.label_b1, self.label_b2, self.label_b3, self.label_b4, self.label_b5]
+            value_sb = [sell_buy_amount[0][0], sell_buy_amount[0][1], sell_buy_amount[0][2],
+                        sell_buy_amount[0][3], sell_buy_amount[0][4], sell_buy_amount[1][0],
+                        sell_buy_amount[1][1], sell_buy_amount[1][2], sell_buy_amount[1][3],
+                        sell_buy_amount[1][4]]
+            for i in range(0, 10):
+                if value_sb[i] == '':
+                    label_sb[i].setText('0')
                 else:
-                    label_sb[i].setText(value_sb[i])
-        self.max_value(sell_buy_amount)
+                    c = int(value_sb[i])
+                    if c >= 10000:
+                        label_sb[i].setText(str(round(c / 10000, 2)) + '万')
+                    else:
+                        label_sb[i].setText(value_sb[i])
+            self.max_value(sell_buy_amount)
+        except Exception as e:
+            print(e)
 
     def max_value(self, sell_buy_amount):
         max_list = []
