@@ -367,9 +367,12 @@ class Ui_Stock_Monitoring(object):
         self.menu_select.setObjectName("menu_select")
         self.menu_open = QtWidgets.QAction(Stock_Monitoring)
         self.menu_open.setObjectName("menu_open")
+        self.action_support = QtWidgets.QAction(Stock_Monitoring)
+        self.action_support.setObjectName("action_support")
         self.menu_file.addAction(self.menu_new)
         self.menu_file.addAction(self.menu_open)
         self.menu_edit.addAction(self.menu_select)
+        self.menu_help.addAction(self.action_support)
         self.menubar.addAction(self.menu_file.menuAction())
         self.menubar.addAction(self.menu_edit.menuAction())
         self.menubar.addAction(self.menu_set.menuAction())
@@ -391,9 +394,9 @@ class Ui_Stock_Monitoring(object):
         self.pushButton_clear.setText(_translate("Stock_Monitoring", "清空"))
         self.lineEdit_1.setText(_translate("Stock_Monitoring", "600733"))
         self.lineEdit_2.setText(_translate("Stock_Monitoring", "600111"))
-        self.label_4.setText(_translate("Stock_Monitoring", "副代码"))
+        self.label_4.setText(_translate("Stock_Monitoring", "自选二"))
         self.label.setText(_translate("Stock_Monitoring", "开始日期"))
-        self.label_3.setText(_translate("Stock_Monitoring", "主代码"))
+        self.label_3.setText(_translate("Stock_Monitoring", "自选一"))
         self.label_2.setText(_translate("Stock_Monitoring", "结束日期"))
         self.dateEdit_end.setDisplayFormat(_translate("Stock_Monitoring", "yyyy/MM/dd"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_daily), _translate("Stock_Monitoring", "日走势图"))
@@ -435,6 +438,7 @@ class Ui_Stock_Monitoring(object):
         self.menu_new.setText(_translate("Stock_Monitoring", "新建"))
         self.menu_select.setText(_translate("Stock_Monitoring", "选择"))
         self.menu_open.setText(_translate("Stock_Monitoring", "打开"))
+        self.action_support.setText(_translate("Stock_Monitoring", "联系支持"))
 from pyqtgraph import GraphicsLayoutWidget
 
 

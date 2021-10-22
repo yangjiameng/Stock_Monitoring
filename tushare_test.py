@@ -5,8 +5,8 @@ import datetime
 import tkinter.messagebox
 import tkinter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate, QUrl
+from PyQt5.QtGui import QIcon, QDesktopServices
 import qtawesome as qw
 import pyqtgraph as pg
 import numpy as np
@@ -185,6 +185,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.dateEdit_begin.dateChanged.connect(self.k_plot)
         self.dateEdit_end.dateChanged.connect(self.k_plot)
         self.menu_open.triggered.connect(self.open_excel)
+        self.action_support.triggered.connect(self.support)
 
     def asd(self):
         print('1')
@@ -332,6 +333,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         if openfile_name[0] != '':
             os.startfile(openfile_name[0])
             print(openfile_name[0])
+
+    def support(self):
+        QDesktopServices.openUrl(QUrl('https://github.com/yangjiameng/Stock_Monitoring'))
 
 
 if __name__ == '__main__':

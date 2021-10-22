@@ -184,7 +184,7 @@
          <item row="1" column="2">
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>副代码</string>
+            <string>自选二</string>
            </property>
           </widget>
          </item>
@@ -198,7 +198,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>主代码</string>
+            <string>自选一</string>
            </property>
           </widget>
          </item>
@@ -832,6 +832,7 @@
     <property name="title">
      <string>帮助</string>
     </property>
+    <addaction name="action_support"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_edit"/>
@@ -852,6 +853,11 @@
   <action name="menu_open">
    <property name="text">
     <string>打开</string>
+   </property>
+  </action>
+  <action name="action_support">
+   <property name="text">
+    <string>联系支持</string>
    </property>
   </action>
  </widget>
