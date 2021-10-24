@@ -186,9 +186,10 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.dateEdit_end.dateChanged.connect(self.k_plot)
         self.menu_open.triggered.connect(self.open_excel)
         self.action_support.triggered.connect(self.support)
+        self.action_about.triggered.connect(self.about)
 
-    def asd(self):
-        print('1')
+    def about(self):
+        QMessageBox.about(self, '关于', '\nQQ: 918021618\n博客: https://wyzs1314.com')
 
     def profit(self):
         self.listWidget_person_msg.clear()

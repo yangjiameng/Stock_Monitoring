@@ -807,7 +807,7 @@
      <x>0</x>
      <y>0</y>
      <width>873</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -833,6 +833,8 @@
      <string>帮助</string>
     </property>
     <addaction name="action_support"/>
+    <addaction name="separator"/>
+    <addaction name="action_about"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_edit"/>
@@ -843,6 +845,9 @@
   <action name="menu_new">
    <property name="text">
     <string>新建</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="menu_select">
@@ -858,6 +863,14 @@
   <action name="action_support">
    <property name="text">
     <string>联系支持</string>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>关于</string>
    </property>
   </action>
  </widget>
