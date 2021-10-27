@@ -148,7 +148,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.doubleSpinBox_my_money.setValue(config_rw.config_read())
         self.k_plot()
         self.timer = QTimer()
-        # self.timer.timeout.connect(self.line)
+        self.timer_line = QTimer()
+        self.timer_line.timeout.connect(self.line_k)
+        self.timer_line.start(2000)
         self.timer.timeout.connect(self.sell_and_buy_price_realtime)
         self.timer.start(2000)
         self.work = work_thread()
@@ -201,7 +203,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                              '持仓占比' + ':' + config_rw.config['profit_message']['持仓占比'],
                                              '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
 
-    def line(self):
+    def line_k(self):
         self.time_begin = datetime.datetime.now().strftime('%H%M')
         if '0930' <= self.time_begin <= '1130' or '1300' <= self.time_begin <= '1500':
             self.progressBar_stock.setValue(int(self.process_value))
@@ -259,11 +261,12 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def sell_and_buy_price_realtime(self):
         try:
-            data = ts.get_realtime_quotes('000815')
+            data = ts.get_realtime_quotes('000683')
             sell_buy_amount = []
             df = pd.DataFrame(data=data)
             self.pre_close = df.loc[0, 'pre_close']
             self.lcdNumber_current_price.display(format(float(df.loc[0, 'price']), '.2f'))
+            self.label_name.setText(df.loc[0, 'name'])
             sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
                                     df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
             sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
