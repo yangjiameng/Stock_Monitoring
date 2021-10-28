@@ -1,8 +1,10 @@
 from Stock_Monitoring.login import Ui_login
 from Stock_Monitoring.tushare_test import *
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QDesktopWidget
 import socket
 import sys
+import ssl
+import json
 
 
 class launcher_ui(QDialog, Ui_login):
@@ -11,7 +13,6 @@ class launcher_ui(QDialog, Ui_login):
         super().__init__()
         config_rw.config.read('message.ini')
         self.setupUi(self)
-        self.showMaximized()
         self.progressBar_load.setVisible(False)
         self.label_load.setVisible(False)
         self.ti = QTimer()
@@ -25,9 +26,7 @@ class launcher_ui(QDialog, Ui_login):
             config_rw.config.set('personal_message', 'username', self.comboBox_user.currentText())
             config_rw.config.set('personal_message', 'password', self.lineEdit_password.text())
             config_rw.config.write(open('message.ini', 'w'))
-        username = self.comboBox_user.currentText()
-        password = self.lineEdit_password.text()
-        if username == 'yangjm' and password == '123':
+        if self.soc():
             self.label_log.setText('登录成功!')
             self.label_load.setVisible(True)
             self.progressBar_load.setVisible(True)
@@ -48,10 +47,19 @@ class launcher_ui(QDialog, Ui_login):
 
     def soc(self):
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect(('wyzs1314.com', 8080))
-        while True:
-            msg = {'u': self.comboBox_user.currentText(), 'p': self.lineEdit_password.text()}
-            client.send(msg)
+        context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+        ssl_client = context.wrap_socket(client)
+        ssl_client.connect(('wyzs1314.com', 8080))
+        login_msg = {'u': self.comboBox_user.currentText(), 'p': self.lineEdit_password.text()}
+        json.dumps(login_msg)
+        ssl_client.send(json.dumps(login_msg).encode())
+        rec_msg = ssl_client.recv(4096).decode('utf-8')
+        print(rec_msg)
+        if rec_msg == 'yes':
+            ssl_client.close()
+            return 1
+        ssl_client.close()
+        return 0
 
 
 if __name__ == '__main__':
