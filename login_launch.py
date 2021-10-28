@@ -13,10 +13,13 @@ class launcher_ui(QDialog, Ui_login):
         super().__init__()
         config_rw.config.read('message.ini')
         self.setupUi(self)
+        self.setWindowIcon(QIcon("Icons/main_icon.ico"))
+        # self.setStyleSheet("background-image:url(Icons/background.jpg)")
         self.progressBar_load.setVisible(False)
         self.label_load.setVisible(False)
         self.ti = QTimer()
         self.value = 10
+        self.login_num = 0
         self.comboBox_user.addItems([config_rw.config['personal_message']['username'], 'clear'])
         self.lineEdit_password.setText(config_rw.config['personal_message']['password'])
         self.pushButton_login.clicked.connect(self.login_push)
@@ -36,6 +39,12 @@ class launcher_ui(QDialog, Ui_login):
             ui.timer.timeout.connect(self.goto_ui)
         else:
             self.label_log.setText('账号或密码错误!')
+            self.login_num += 1
+            if self.login_num == 3:
+                QMessageBox.warning(self, 'warning', '密码错误超过三次，软件退出!')
+                ui_login.close()
+            else:
+                QMessageBox.warning(self, 'warning', '密码错误，重新输入!')
 
     def goto_ui(self):
         ui_login.close()
