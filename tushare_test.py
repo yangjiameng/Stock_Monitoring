@@ -80,6 +80,9 @@ class work_thread(QThread):
 
     def __init__(self):
         super(work_thread, self).__init__()
+        # self.line_1 = line_1
+        # self.line_2 = line_2
+        # self.listshow = listshow
 
     def run(self):
         self.lock.lock()
