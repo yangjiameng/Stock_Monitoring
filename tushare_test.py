@@ -1,21 +1,22 @@
 import tushare as ts
 import pandas as pd
-from time import sleep
-import datetime
-import tkinter.messagebox
-import tkinter
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate, QUrl
-from PyQt5.QtGui import QIcon, QDesktopServices
 import qtawesome as qw
 import pyqtgraph as pg
 import numpy as np
 import sys
 import os
+import datetime
+import tkinter.messagebox
+import tkinter
+import qdarkstyle
+from time import sleep
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidgetItem
+from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate, QUrl
+from PyQt5.QtGui import QIcon, QDesktopServices, QColor
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
-from Stock_Monitoring.up_down_stock_list import get_date
-
+from Stock_Monitoring.up_down_stock_list import get_date, get_realtime_data
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
 
@@ -122,14 +123,15 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         self.csv_flag = True
         self.setWindowIcon(QIcon("Icons/main_icon.ico"))
         self.mouth_k = self.graphicsView_matplot.addPlot()
-        self.daily_k = self.graphicsView_daily_line.addPlot(title="分时K线图")
+        self.daily_k = self.graphicsView_daily_line.addPlot()
         self.daily_k.setXRange(0, 240)
         self.arr_data = []
         self.line_list_time = [0]
-        self.line_list_price = [40.18]
+        self.line_list_price = [5.02]
         self.process_value = 100 / 7200
         self.step = 100 / 7200
         self.pre_close = ''
@@ -183,7 +185,8 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.comboBox.activated.connect(self.combobox_select)
         self.comboBox_2.activated.connect(self.combobox2_select)
         self.pushButton.clicked.connect(self.profit)
-        self.pushButton_search.clicked.connect(self.work_event)
+        # self.pushButton_search.clicked.connect(self.work_event)
+        self.pushButton_search.clicked.connect(self.realtime_data)
         self.pushButton_clear.clicked.connect(self.work_clear)
         self.pushButton_get_zd_data.clicked.connect(self.download_data)
         self.lineEdit_1.editingFinished.connect(self.k_plot)
@@ -192,6 +195,14 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.menu_open.triggered.connect(self.open_excel)
         self.action_support.triggered.connect(self.support)
         self.action_about.triggered.connect(self.about)
+        self.action_light.triggered.connect(self.light_theme_change)
+        self.action_dark.triggered.connect(self.dark_theme_change)
+
+    def light_theme_change(self):
+        self.setStyleSheet('')
+
+    def dark_theme_change(self):
+        self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     def about(self):
         QMessageBox.about(self, '关于', '\nQQ: 918021618\n博客: https://wyzs1314.com')
@@ -205,6 +216,19 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                              '持有公司' + ':' + config_rw.config['profit_message']['持有公司'],
                                              '持仓占比' + ':' + config_rw.config['profit_message']['持仓占比'],
                                              '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
+
+    def realtime_data(self):
+        data = get_realtime_data()
+        for i in data:
+            qa = QListWidgetItem()
+            if i['bs'] == 1:
+                qa.setForeground(QColor(Qt.green))
+            else:
+                qa.setForeground(QColor(Qt.red))
+            qa.setText(str(i))
+            # data_s = str(i['t']) + ' ' + str(i['p'] / 1000) + ' ' + str(i['v'])
+            self.listWidget_zd_msg.addItem(qa)
+        self.listWidget_zd_msg.scrollToBottom()
 
     def line_k(self):
         self.time_begin = datetime.datetime.now().strftime('%H%M')
@@ -223,8 +247,8 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                 self.time_flag = self.time_begin
             self.daily_k.setLabel("bottom", "Time/(h:s)")
             self.daily_k.setLabel("left", "Price/(¥)")
-            self.daily_k.plot(fillLevel=40.18, brush=(50, 50, 200, 100)).setData(pen=pg.mkPen(color='r', width=2),
-                                                                                 y=self.line_list_price)
+            self.daily_k.plot(fillLevel=5.02, brush=(50, 50, 200, 100)).setData(pen=pg.mkPen(color='r', width=2),
+                                                                             y=self.line_list_price)
             self.daily_k.showGrid(y=True)
 
     def k_plot(self):
@@ -264,7 +288,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def sell_and_buy_price_realtime(self):
         try:
-            data = ts.get_realtime_quotes('000683')
+            data = ts.get_realtime_quotes('600277')
             sell_buy_amount = []
             df = pd.DataFrame(data=data)
             self.pre_close = df.loc[0, 'pre_close']

@@ -66,6 +66,14 @@ def get_date():
     write_csv(now_time_url, now_time_excel)
 
 
+def get_realtime_data():
+    url = 'https://push2ex.eastmoney.com/getStockFenShi?&ut=7eea3edcaed734bea9cbfc24409ed989&dpt=wzfscj&pageindex=0' \
+          '&sort=1&ft=1&code=600277&market=1 '
+    a = requests.get(url)
+    b = json.loads(a.text)
+    return b['data']['data']
+
+
 if __name__ == '__main__':
     # write_csv()
     get_date()

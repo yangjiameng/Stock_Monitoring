@@ -19,6 +19,7 @@ def config_write():
                                 '持有公司': '北方稀土',
                                 '持仓占比': '70%%',
                                 '投资风格': '激进型'}
+    config['self_search'] = {'search_1': ''}
     with open('message.ini', 'w') as f:
         config.write(f)
 
