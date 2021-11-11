@@ -17,6 +17,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 from Stock_Monitoring.up_down_stock_list import get_date, get_realtime_data
+
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
 
@@ -135,6 +136,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.process_value = 100 / 7200
         self.step = 100 / 7200
         self.pre_close = ''
+        self.data_num = 0
         config_rw.config.read('message.ini')
         self.lineEdit_1.setText(config_rw.config['DEFAULT']['first_code'])
         self.lineEdit_2.setText(config_rw.config['DEFAULT']['second_code'])
@@ -185,7 +187,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.comboBox.activated.connect(self.combobox_select)
         self.comboBox_2.activated.connect(self.combobox2_select)
         self.pushButton.clicked.connect(self.profit)
-        # self.pushButton_search.clicked.connect(self.work_event)
+        self.pushButton_search.clicked.connect(self.work_event)
         self.pushButton_search.clicked.connect(self.realtime_data)
         self.pushButton_clear.clicked.connect(self.work_clear)
         self.pushButton_get_zd_data.clicked.connect(self.download_data)
@@ -218,16 +220,29 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                              '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
 
     def realtime_data(self):
+        self.listWidget_zd_msg.clear()
         data = get_realtime_data()
+        self.data_num = len(data)
         for i in data:
             qa = QListWidgetItem()
+            if i['t'] < 100000:
+                time_t = '0' + str(i['t'])[0] + ':' + str(i['t'])[1:3]
+            else:
+                time_t = str(i['t'])[0:2] + ':' + str(i['t'])[2:4]
+            price_p = str(format(i['p'] / 1000, '.2f'))
+            if i['v'] >= 10000:
+                value_v = str(format(i['v'] / 10000, '.2f')) + '万'
+            else:
+                value_v = str(i['v'])
+            str_data = time_t + '     ' + price_p + '     ' + value_v
             if i['bs'] == 1:
                 qa.setForeground(QColor(Qt.green))
+                qa.setText(str_data + '  ↓')
             else:
                 qa.setForeground(QColor(Qt.red))
-            qa.setText(str(i))
-            # data_s = str(i['t']) + ' ' + str(i['p'] / 1000) + ' ' + str(i['v'])
+                qa.setText(str_data + '  ↑')
             self.listWidget_zd_msg.addItem(qa)
+        # print(self.listWidget_zd_msg.count())
         self.listWidget_zd_msg.scrollToBottom()
 
     def line_k(self):
@@ -248,7 +263,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
             self.daily_k.setLabel("bottom", "Time/(h:s)")
             self.daily_k.setLabel("left", "Price/(¥)")
             self.daily_k.plot(fillLevel=5.02, brush=(50, 50, 200, 100)).setData(pen=pg.mkPen(color='r', width=2),
-                                                                             y=self.line_list_price)
+                                                                                y=self.line_list_price)
             self.daily_k.showGrid(y=True)
 
     def k_plot(self):
