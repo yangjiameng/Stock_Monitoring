@@ -69,7 +69,11 @@ def get_date():
 def get_realtime_data():
     url = 'https://push2ex.eastmoney.com/getStockFenShi?&ut=7eea3edcaed734bea9cbfc24409ed989&dpt=wzfscj&pageindex=0' \
           '&sort=1&ft=1&code=600277&market=1 '
-    a = requests.get(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/93.0.4577.82 Safari/537.36 '
+    }
+    a = requests.get(url, headers=headers)
     b = json.loads(a.text)
     return b['data']['data']
 

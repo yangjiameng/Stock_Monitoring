@@ -156,8 +156,11 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.k_plot()
         self.timer = QTimer()
         self.timer_line = QTimer()
+        self.timer_realtime = QTimer()
+        self.timer_realtime.timeout.connect(self.realtime_data)
+        self.timer_realtime.start(3000)
         self.timer_line.timeout.connect(self.line_k)
-        self.timer_line.start(2000)
+        # self.timer_line.start(2000)
         self.timer.timeout.connect(self.sell_and_buy_price_realtime)
         self.timer.start(2000)
         self.work = work_thread()
@@ -187,7 +190,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.comboBox.activated.connect(self.combobox_select)
         self.comboBox_2.activated.connect(self.combobox2_select)
         self.pushButton.clicked.connect(self.profit)
-        self.pushButton_search.clicked.connect(self.work_event)
+        # self.pushButton_search.clicked.connect(self.work_event)
         self.pushButton_search.clicked.connect(self.realtime_data)
         self.pushButton_clear.clicked.connect(self.work_clear)
         self.pushButton_get_zd_data.clicked.connect(self.download_data)
@@ -220,30 +223,33 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                              '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
 
     def realtime_data(self):
-        self.listWidget_zd_msg.clear()
-        data = get_realtime_data()
-        self.data_num = len(data)
-        for i in data:
-            qa = QListWidgetItem()
-            if i['t'] < 100000:
-                time_t = '0' + str(i['t'])[0] + ':' + str(i['t'])[1:3]
-            else:
-                time_t = str(i['t'])[0:2] + ':' + str(i['t'])[2:4]
-            price_p = str(format(i['p'] / 1000, '.2f'))
-            if i['v'] >= 10000:
-                value_v = str(format(i['v'] / 10000, '.2f')) + '万'
-            else:
-                value_v = str(i['v'])
-            str_data = time_t + '     ' + price_p + '     ' + value_v
-            if i['bs'] == 1:
-                qa.setForeground(QColor(Qt.green))
-                qa.setText(str_data + '  ↓')
-            else:
-                qa.setForeground(QColor(Qt.red))
-                qa.setText(str_data + '  ↑')
-            self.listWidget_zd_msg.addItem(qa)
-        # print(self.listWidget_zd_msg.count())
-        self.listWidget_zd_msg.scrollToBottom()
+        try:
+            self.listWidget_zd_msg.clear()
+            data = get_realtime_data()
+            self.data_num = len(data)
+            for i in data:
+                qa = QListWidgetItem()
+                if i['t'] < 100000:
+                    time_t = '0' + str(i['t'])[0] + ':' + str(i['t'])[1:3]
+                else:
+                    time_t = str(i['t'])[0:2] + ':' + str(i['t'])[2:4]
+                price_p = str(format(i['p'] / 1000, '.2f'))
+                if i['v'] >= 10000:
+                    value_v = str(format(i['v'] / 10000, '.2f')) + '万'
+                else:
+                    value_v = str(i['v'])
+                str_data = time_t + '     ' + price_p + '     ' + value_v
+                if i['bs'] == 1:
+                    qa.setForeground(QColor(Qt.green))
+                    qa.setText(str_data + '  ↓')
+                else:
+                    qa.setForeground(QColor(Qt.red))
+                    qa.setText(str_data + '  ↑')
+                self.listWidget_zd_msg.addItem(qa)
+            # print(self.listWidget_zd_msg.count())
+            self.listWidget_zd_msg.scrollToBottom()
+        except Exception as e:
+            print(e)
 
     def line_k(self):
         self.time_begin = datetime.datetime.now().strftime('%H%M')
