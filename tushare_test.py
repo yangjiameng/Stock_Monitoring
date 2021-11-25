@@ -313,6 +313,9 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
             sell_buy_amount = []
             df = pd.DataFrame(data=data)
             self.pre_close = df.loc[0, 'pre_close']
+            df_price = df.loc[0, 'price']
+            df_percentage = (float(df_price) - float(self.pre_close)) / float(self.pre_close) * 100
+            self.label_zd.setText(str(round(df_percentage, 2)) + '%')
             self.lcdNumber_current_price.display(format(float(df.loc[0, 'price']), '.2f'))
             self.label_name.setText(df.loc[0, 'name'])
             sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
