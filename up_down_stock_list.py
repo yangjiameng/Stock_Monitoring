@@ -66,9 +66,12 @@ def get_date():
     write_csv(now_time_url, now_time_excel)
 
 
-def get_realtime_data():
+def get_realtime_data(code):
+    flag = '1'
+    if code[0] == '0':
+        flag = '0'
     url = 'https://push2ex.eastmoney.com/getStockFenShi?&ut=7eea3edcaed734bea9cbfc24409ed989&dpt=wzfscj&pageindex=0' \
-          '&sort=1&ft=1&code=600277&market=1 '
+          '&sort=1&ft=1&code=' + code + '&market=' + flag
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/93.0.4577.82 Safari/537.36 '

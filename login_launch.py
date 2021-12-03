@@ -5,12 +5,14 @@ import socket
 import sys
 import ssl
 import json
+import qdarkstyle
 
 
 class launcher_ui(QDialog, Ui_login):
 
     def __init__(self):
         super().__init__()
+        self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         config_rw.config.read('message.ini')
         self.setupUi(self)
         self.setWindowIcon(QIcon("Icons/main_icon.ico"))

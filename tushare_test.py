@@ -13,7 +13,7 @@ from time import sleep
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidgetItem
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices, QColor
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 from Stock_Monitoring.up_down_stock_list import get_date, get_realtime_data
@@ -137,6 +137,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.step = 100 / 7200
         self.pre_close = ''
         self.data_num = 0
+        self.code_1 = '600277'
         config_rw.config.read('message.ini')
         self.lineEdit_1.setText(config_rw.config['DEFAULT']['first_code'])
         self.lineEdit_2.setText(config_rw.config['DEFAULT']['second_code'])
@@ -225,7 +226,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
     def realtime_data(self):
         try:
             self.listWidget_zd_msg.clear()
-            data = get_realtime_data()
+            data = get_realtime_data(self.code_1)
             self.data_num = len(data)
             for i in data:
                 qa = QListWidgetItem()
@@ -274,6 +275,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def k_plot(self):
         # self.lineEdit_1.hasFocus()
+        self.code_1 = self.lineEdit_1.text()
         self.mouth_k.clear()
         self.mouth_k.setLabel("bottom", "Time/(min)")
         self.mouth_k.setLabel("left", "Increase/(%)")
@@ -309,7 +311,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def sell_and_buy_price_realtime(self):
         try:
-            data = ts.get_realtime_quotes('600277')
+            data = ts.get_realtime_quotes(self.code_1)
             sell_buy_amount = []
             df = pd.DataFrame(data=data)
             self.pre_close = df.loc[0, 'pre_close']
