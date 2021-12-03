@@ -377,7 +377,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         for k in range(0, 10):
             value_len[k].setValue(int(100 * max_list[k] / num))
             if price_list[k] < float(self.pre_close):
-                value_len[k].setStyleSheet('')
+                value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(0, 255, 0);}')
             else:
                 value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(255, 0, 0);}')
 
