@@ -195,6 +195,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.pushButton_search.clicked.connect(self.realtime_data)
         self.pushButton_clear.clicked.connect(self.work_clear)
         self.pushButton_get_zd_data.clicked.connect(self.download_data)
+        self.pushButton_save.clicked.connect(self.write_ini)
         self.lineEdit_1.editingFinished.connect(self.k_plot)
         self.dateEdit_begin.dateChanged.connect(self.k_plot)
         self.dateEdit_end.dateChanged.connect(self.k_plot)
@@ -224,6 +225,8 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                                              '投资风格' + ':' + config_rw.config['profit_message']['投资风格']])
 
     def realtime_data(self):
+        config_rw.config.set('DEFAULT', 'first_code', self.lineEdit_1.text())
+        config_rw.config.write(open('message.ini', 'w'))
         try:
             self.listWidget_zd_msg.clear()
             data = get_realtime_data(self.code_1)
@@ -396,7 +399,8 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         QDesktopServices.openUrl(QUrl('https://github.com/yangjiameng/Stock_Monitoring'))
 
     def write_ini(self):
-        pass
+        config_rw.config.set('DEFAULT', 'first_code', self.lineEdit_1.text())
+        config_rw.config.write(open('message.ini', 'w'))
 
 
 if __name__ == '__main__':
