@@ -13,10 +13,10 @@ from time import sleep
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListWidgetItem
 from PyQt5.QtCore import QThread, pyqtSignal, QDateTime, QMutex, QTimer, Qt, QDate, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices, QColor
-# from PyQt5.QtWebEngineWidgets import QWebEngineView
 from Stock_Monitoring import config_rw
 from Stock_Monitoring.StockUI import Ui_Stock_Monitoring
 from Stock_Monitoring.up_down_stock_list import get_date, get_realtime_data
+from Stock_Monitoring import tu_share_requests as tsr
 
 token = '8c393a8010030c17c6c93bcc4d798cc2d9e8ecbf7e082a32980b1b97'
 
@@ -135,7 +135,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
         self.line_list_price = [5.02]
         self.process_value = 100 / 7200
         self.step = 100 / 7200
-        self.pre_close = ''
+        self.pre_close = 0
         self.data_num = 0
         self.code_1 = '600277'
         config_rw.config.read('message.ini')
@@ -314,24 +314,20 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
 
     def sell_and_buy_price_realtime(self):
         try:
-            data = ts.get_realtime_quotes(self.code_1)
+            data = tsr.get_realtime_quote(self.code_1)
             sell_buy_amount = []
-            df = pd.DataFrame(data=data)
-            self.pre_close = df.loc[0, 'pre_close']
-            df_price = df.loc[0, 'price']
-            df_percentage = (float(df_price) - float(self.pre_close)) / float(self.pre_close) * 100
-            df_cur_price = (float(df_price) - float(self.pre_close))
-            self.label_zd.setText(str(round(df_cur_price, 2)) + '  ' + str(round(df_percentage, 2)) + '%')
-            self.lcdNumber_current_price.display(format(float(df.loc[0, 'price']), '.2f'))
-            self.label_name.setText(df.loc[0, 'name'])
-            sell_buy_amount.append((df.loc[0, 'a1_v'], df.loc[0, 'a2_v'], df.loc[0, 'a3_v'],
-                                    df.loc[0, 'a4_v'], df.loc[0, 'a5_v']))
-            sell_buy_amount.append((df.loc[0, 'b1_v'], df.loc[0, 'b2_v'], df.loc[0, 'b3_v'],
-                                    df.loc[0, 'b4_v'], df.loc[0, 'b5_v']))
-            sell_buy_amount.append((df.loc[0, 'a1_p'], df.loc[0, 'a2_p'], df.loc[0, 'a3_p'],
-                                    df.loc[0, 'a4_p'], df.loc[0, 'a5_p']))
-            sell_buy_amount.append((df.loc[0, 'b1_p'], df.loc[0, 'b2_p'], df.loc[0, 'b3_p'],
-                                    df.loc[0, 'b4_p'], df.loc[0, 'b5_p']))
+            self.pre_close = data['pre_close']
+            self.label_zd.setText(str(data['zd_price']) + '  ' + str(data['zd_value']) + '%')
+            self.lcdNumber_current_price.display(format(data['price'], '.2f'))
+            self.label_name.setText(data['name'])
+            sell_buy_amount.append((data['a1_v'], data['a2_v'], data['a3_v'],
+                                    data['a4_v'], data['a5_v']))
+            sell_buy_amount.append((data['b1_v'], data['b2_v'], data['b3_v'],
+                                    data['b4_v'], data['b5_v']))
+            sell_buy_amount.append((data['a1_p'], data['a2_p'], data['a3_p'],
+                                    data['a4_p'], data['a5_p']))
+            sell_buy_amount.append((data['b1_p'], data['b2_p'], data['b3_p'],
+                                    data['b4_p'], data['b5_p']))
             self.label_sell1.setText('卖1    ' + format(float(sell_buy_amount[2][0]), '.2f'))
             self.label_sell2.setText('卖2    ' + format(float(sell_buy_amount[2][1]), '.2f'))
             self.label_sell3.setText('卖3    ' + format(float(sell_buy_amount[2][2]), '.2f'))
@@ -356,7 +352,7 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                     if c >= 10000:
                         label_sb[i].setText(str(round(c / 10000, 2)) + '万')
                     else:
-                        label_sb[i].setText(value_sb[i])
+                        label_sb[i].setText(str(value_sb[i]))
             self.max_value(sell_buy_amount)
         except Exception as e:
             print(e)
@@ -370,17 +366,20 @@ class main_ui(QMainWindow, Ui_Stock_Monitoring):
                      self.progressBar_b4, self.progressBar_b5]
         for i in range(0, 2):
             for j in range(0, 5):
-                if sell_buy_amount[i][j] == '':
+                if sell_buy_amount[i][j] == '0':
                     max_list.append(0)
                 else:
                     max_list.append(int(sell_buy_amount[i][j]))
         for h in range(2, 4):
             for g in range(0, 5):
-                price_list.append(float(sell_buy_amount[h][g]))
+                if sell_buy_amount[h][g] == '0':
+                    price_list.append(0)
+                else:
+                    price_list.append(float(sell_buy_amount[h][g]))
         num = max(max_list)
         for k in range(0, 10):
             value_len[k].setValue(int(100 * max_list[k] / num))
-            if price_list[k] < float(self.pre_close):
+            if price_list[k] < self.pre_close:
                 value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(0, 255, 0);}')
             else:
                 value_len[k].setStyleSheet('QProgressBar::chunk {background-color: rgb(255, 0, 0);}')
