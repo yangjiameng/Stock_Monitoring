@@ -1,5 +1,7 @@
 import requests
 import json
+import csv
+from time import sleep
 
 
 def get_realtime_quote(code):
@@ -55,5 +57,29 @@ def get_realtime_quote(code):
     return data_dict
 
 
+def csv_read_code_list():
+    csv_file = csv.reader(open('Listed_company_msg/tushare_stock_basic.csv', 'r'))
+    code_list = []
+    for i in csv_file:
+        if 'ST' not in i[2]:
+            code_list.append(i[0][0:6])
+    code_list.pop(0)
+    print(code_list)
+    print('正在获取数据...')
+    num = 1
+    for j in code_list:
+        sleep(0.1)
+        try:
+            a = get_realtime_quote(j)
+            print(num, a)
+        except Exception as e:
+            print(e)
+            a = get_realtime_quote(j)
+            print(num, a)
+        num += 1
+    return code_list
+
+
 if __name__ == '__main__':
     get_realtime_quote('002717')
+    # csv_read_code_list()
